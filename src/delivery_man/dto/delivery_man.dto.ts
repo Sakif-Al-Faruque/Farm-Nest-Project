@@ -1,9 +1,9 @@
 import { IsEmail, IsInt, IsNotEmpty, IsNumber, IsString, Length, MinLength } from "class-validator";
 
-export class SupplierDto{
+export class DeliveryManDto{
     @IsNotEmpty()
     @IsInt()
-    su_id: number;
+    d_id: number;
 
     @IsNotEmpty()
     @IsString()
