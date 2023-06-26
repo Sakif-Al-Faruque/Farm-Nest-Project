@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { SupplierDto } from './dto/supplier.dto';
 
 
 let Supplier = [
@@ -52,15 +53,25 @@ export class SupplierService {
         return Supplier.find((su) => su.su_id === su_id);
     }
 
-    addSupplier(){
-
+    addSupplier(su: SupplierDto){
+        Supplier.push(su);
+        return 'User Added';
     }
 
-    removeSupplier(){
-
+    removeSupplier(su_id: number){
+        Supplier = Supplier.filter((su) => su.su_id != su_id);
+        return Supplier;
     }
 
-    updateSupplier(){
+    updateSupplier(su: SupplierDto, su_id: number ){
+        let userIndex = 0;
+        Supplier.forEach((su, index)=>{
+            if(su.su_id == su_id){
+                userIndex = index;
+            }
+        });
 
+        Supplier[userIndex] = su;
+        return Supplier;
     }
 }
