@@ -9,9 +9,9 @@ export class SupplierAuthService {
     validate(usr: SupplierLoginDto){
         let fetchedUsr = this.supplierService.getSupplierByEmail(usr.email);
         if(fetchedUsr && fetchedUsr.password === usr.password){
-            return 'authenticated';
+            return fetchedUsr;
         }
 
-        return 'not authenticated';
+        //return 'not authenticated';
     }
 }

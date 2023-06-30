@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Session } from '@nestjs/common';
 import { SupplierService } from './supplier.service';
 import { SupplierDto } from './dto/supplier.dto';
 
@@ -29,5 +29,11 @@ export class SupplierController {
     @Patch(':su_id')
     changeSupplier(@Body() su: SupplierDto, @Param('su_id', ParseIntPipe) id: number){
         return this.supplierService.updateSupplier(su, id);
+    }
+
+    @Get('auth/test')
+    testing(@Session() ss:Record<string, any>){
+        return ss.email;
+        //return 'he'
     }
 }

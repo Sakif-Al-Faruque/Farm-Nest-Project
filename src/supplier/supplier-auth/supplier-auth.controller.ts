@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Session } from '@nestjs/common';
 import { SupplierAuthService } from './supplier-auth.service';
 import { SupplierLoginDto } from '../dto/login.dto';
 
@@ -8,7 +8,19 @@ export class SupplierAuthController {
     constructor(private supplierAuthService: SupplierAuthService){}
 
     @Post('login')
-    login(@Body() usr: SupplierLoginDto){
-        return this.supplierAuthService.validate(usr);
+    login(@Body() usr: SupplierLoginDto, @Session() ss: Record<string, any>){
+        let authUser = this.supplierAuthService.validate(usr);
+        if(authUser){
+            ss.email = authUser.email;
+            return 'Authenticated';
+        }
+
+        return 'Not authenticated'
+    }
+
+    @Post('logout')
+    logout(@Session() ss: Record<string, any>){
+        ss.destroy();
+        return 'Logged out';
     }
 }
