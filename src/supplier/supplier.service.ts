@@ -53,6 +53,10 @@ export class SupplierService {
         return Supplier.find((su) => su.su_id === su_id);
     }
 
+    getSupplierByEmail(email: string){
+        return Supplier.find((su) => su.email === email);
+    }
+
     addSupplier(su: SupplierDto){
         Supplier.push(su);
         return 'User Added';
