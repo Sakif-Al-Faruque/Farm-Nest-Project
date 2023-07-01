@@ -4,6 +4,8 @@ import { DeliveryManService } from './delivery_man.service';
 
 @Module({
   controllers: [DeliveryManController],
-  providers: [DeliveryManService]
+  providers: [DeliveryManService],
+  imports: [],
+  exports: [DeliveryManService]
 })
 export class DeliveryManModule {}

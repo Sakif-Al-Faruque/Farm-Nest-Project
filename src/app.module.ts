@@ -6,9 +6,10 @@ import { DeliveryManModule } from './delivery_man/delivery_man.module';
 import { LogModule } from './log/log.module';
 import { OrderModule } from './order/order.module';
 import { SupplierAuthModule } from './supplier/supplier-auth/supplier-auth.module';
+import { DeliveryManAuthModule } from './delivery_man/delivery_man-auth/delivery_man-auth.module';
 
 @Module({
-  imports: [SupplierModule, DeliveryManModule, LogModule, OrderModule, SupplierAuthModule],
+  imports: [SupplierModule, DeliveryManModule, LogModule, OrderModule, SupplierAuthModule, DeliveryManAuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

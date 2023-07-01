@@ -52,6 +52,10 @@ export class DeliveryManService {
         return Delivery_man.find((dm) => dm.d_id === d_id);
     }
 
+    getDeliveryManByEmail(email: string){
+        return Delivery_man.find((dm) => dm.email === email);
+    }
+
     addDeliveryMan(dm: DeliveryManDto){
         Delivery_man.push(dm);
         return 'User Added';
