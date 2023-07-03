@@ -7,7 +7,12 @@ export class CategoryController {
     constructor(private categoryService: CategoryService){}
 
     @Get()
-    ShowAllCategories(){
-        
+    showAllCategories(){
+        return this.categoryService.getAllCategories();
+    }
+
+    @Get(':caid')
+    selectSingleCategory(@Param('caid', ParseIntPipe)id: number){
+        return this.categoryService.getSingleCategory(id);
     }
 }
