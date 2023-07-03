@@ -12,7 +12,12 @@ export class CategoryController {
     }
 
     @Get(':caid')
-    selectSingleCategory(@Param('caid', ParseIntPipe)id: number){
+    selectSingleCategory(@Param('caid', ParseIntPipe) id: number){
         return this.categoryService.getSingleCategory(id);
+    }
+
+    @Post()
+    addCategory(@Body() category: CategoryDto){
+        return this.categoryService.addCategory(category);
     }
 }
