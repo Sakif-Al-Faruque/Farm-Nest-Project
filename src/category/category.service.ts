@@ -20,8 +20,8 @@ export class CategoryService {
         return categories;
     }
 
-    getSingleCategory(caid: number){
-        return categories.find((category)=> category.ca_id === caid);
+    getSingleCategory(ca_id: number){
+        return categories.find((category)=> category.ca_id === ca_id);
     }
 
     addCategory(category: CategoryDto){

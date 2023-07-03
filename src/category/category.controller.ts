@@ -11,8 +11,8 @@ export class CategoryController {
         return this.categoryService.getAllCategories();
     }
 
-    @Get(':caid')
-    selectSingleCategory(@Param('caid', ParseIntPipe) id: number){
+    @Get(':ca_id')
+    selectSingleCategory(@Param('ca_id', ParseIntPipe) id: number){
         return this.categoryService.getSingleCategory(id);
     }
 
@@ -21,4 +21,13 @@ export class CategoryController {
         return this.categoryService.addCategory(category);
     }
 
+    @Patch(':ca_id')
+    updateCategory(@Body() category: CategoryDto, @Param('ca_id', ParseIntPipe) id: number){
+        return this.categoryService.updateCategory(category, id);
+    }
+
+    @Delete(':ca_id')
+    removeCategory(@Param('ca_id', ParseIntPipe) id: number){
+        return this.categoryService.removeCategory(id);
+    }
 }
