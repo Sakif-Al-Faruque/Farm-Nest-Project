@@ -1,50 +1,59 @@
-import { IsNotEmpty, Length, IsEmail, IsNumber, IsDate, IsPhoneNumber } from "class-validator";
+import { IsNotEmpty, Length, IsEmail, IsNumber, IsString, IsBoolean, IsInt } from "class-validator";
 
 export class StaffDto{
-    @IsNumber()
+    @IsInt()
     sid:number
 
     @IsEmail()
     email:string
 
-    @IsNotEmpty({message:'Filed Empty'})
+    @IsString()
     first_name:string
 
-    @IsNotEmpty({message:'Filed Empty'})
+    @IsString()
     last_name:string
 
-    @IsNotEmpty({message:'Filed Empty'})
+    @IsString()
     gender:string
 
     @Length(8)
     password:string
 
-    @IsDate()
+    @IsString()
     dob:string
 
     @IsNumber()
     house_no:number
 
-    @IsNotEmpty({message:'Filed Empty'})
+    @IsString()
     road:string
 
-    @IsNotEmpty({message:'Filed Empty'})
+    @IsString()
     area:string
 
-    @IsNotEmpty({message:'Filed Empty'})
+    @IsString()
     police_station:string
 
-    @IsNotEmpty({message:'Filed Empty'})
+    @IsString()
     district:string
 
-    @IsNotEmpty({message:'Filed Empty'})
+    @IsString()
     division:string
 
-    @IsNotEmpty({message:'Filed Empty'})
+    @IsString()
     nationality:string
 
-    @IsPhoneNumber()
+    @IsString()
     phone_no:string
 
-    image:string    
+    image:string 
+    
+    @IsBoolean()
+    approved_status:boolean
+
+    @IsInt()
+    approved_by:number
+
+    @IsString()
+    account_status:string
 }
