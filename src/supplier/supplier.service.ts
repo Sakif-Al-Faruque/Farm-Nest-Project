@@ -3,6 +3,7 @@ import { SupplierDto } from './dto/supplier.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SupplierEntity } from './enitity/supplier.entity';
 import { Repository } from 'typeorm';
+import { HashingService } from 'src/hashing/hashing.service';
 
 
 @Injectable()
@@ -11,6 +12,7 @@ export class SupplierService {
     constructor(
         @InjectRepository(SupplierEntity)
         private readonly supplierEntityRepo: Repository<SupplierEntity>,
+        private readonly hashingService: HashingService
     ){}
 
     async getAllSuppliers(): Promise<SupplierEntity[]>{
@@ -26,7 +28,7 @@ export class SupplierService {
     }
 
     async addSupplier(su: SupplierDto): Promise<string>{
-        let password = su.password;
+        let password = await this.hashingService.encodText(su.password);
         const userRepo = await this.supplierEntityRepo.create({...su, password});
         await this.supplierEntityRepo.save(userRepo);
         return 'User Added';
