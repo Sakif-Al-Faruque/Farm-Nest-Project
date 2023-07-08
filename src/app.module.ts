@@ -14,6 +14,7 @@ import { ProductModule } from './product/product.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HashingModule } from './hashing/hashing.module';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
@@ -28,6 +29,15 @@ import { HashingModule } from './hashing/hashing.module';
       autoLoadEntities: true,
       entities: [],
       synchronize: true
+    }),
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp-relay.brevo.com',
+        auth: {
+          user: 'rs.expoit123@gmail.com',
+          pass: 'xsmtpsib-b53e719b92b33fb4f3064487e4c6f93725e54e68efefad79ef2fd7237ef18599-AKpqUn2s591c4ZO0'
+        }
+      }
     }),
     SupplierModule, DeliveryManModule, LogModule, OrderModule, SupplierAuthModule, DeliveryManAuthModule, StaffModule, CategoryModule, SalesReportModule, ProductModule, HashingModule],
   controllers: [AppController],
