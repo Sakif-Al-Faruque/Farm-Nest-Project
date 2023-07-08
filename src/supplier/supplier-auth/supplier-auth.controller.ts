@@ -8,8 +8,8 @@ export class SupplierAuthController {
     constructor(private supplierAuthService: SupplierAuthService){}
 
     @Post('login')
-    login(@Body() usr: SupplierLoginDto, @Session() ss: Record<string, any>){
-        let authUser = this.supplierAuthService.validate(usr);
+    async login(@Body() usr: SupplierLoginDto, @Session() ss: Record<string, any>){
+        let authUser = await this.supplierAuthService.validate(usr);
         if(authUser){
             ss.email = authUser.email;
             return 'Authenticated';

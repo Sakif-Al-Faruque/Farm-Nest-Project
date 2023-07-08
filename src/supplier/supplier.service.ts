@@ -1,81 +1,44 @@
 import { Injectable } from '@nestjs/common';
 import { SupplierDto } from './dto/supplier.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { SupplierEntity } from './enitity/supplier.entity';
+import { Repository } from 'typeorm';
 
-
-let Supplier = [
-    {
-        su_id: 110,
-        email: "john@g.co",
-        first_name: "john",
-        last_name: "shoe",
-        gender: "male",
-        password: "12345678",
-        dob: "1995-09-20",
-        house_no: 121,
-        road: "kazi nazrul islam avenue",
-        area: "karwanbazar",
-        police_station: "vatara",
-        district: "dhaka",
-        division: "dhaka",
-        phone_no: "01999777777",
-        image: "img1.jpg",
-        approved_by: 1140,
-        account_status: "pending"
-    },
-    {
-        su_id: 120,
-        email: "bob@g.co",
-        first_name: "bob",
-        last_name: "bro",
-        gender: "male",
-        password: "87654321",
-        dob: "1992-03-29",
-        house_no: 122,
-        road: "kazi nazrul islam avenue",
-        area: "mirpur",
-        police_station: "kafrul",
-        district: "dhaka",
-        division: "dhaka",
-        phone_no: "01388999999",
-        image: "img2.jpg",
-        approved_by: 1150,
-        account_status: "approved"
-    },
-];
 
 @Injectable()
 export class SupplierService {
-    getAllSuppliers(){
-        return Supplier;
+
+    constructor(
+        @InjectRepository(SupplierEntity)
+        private readonly supplierEntityRepo: Repository<SupplierEntity>,
+    ){}
+
+    async getAllSuppliers(): Promise<SupplierEntity[]>{
+        return await this.supplierEntityRepo.find();
     }
 
-    getSupplierById(su_id: number){
-        return Supplier.find((su) => su.su_id === su_id);
+    async getSupplierById(su_id: number): Promise<SupplierEntity>{
+        return await this.supplierEntityRepo.findOneBy({su_id});
     }
 
-    getSupplierByEmail(email: string){
-        return Supplier.find((su) => su.email === email);
+    async getSupplierByEmail(email: string): Promise<SupplierEntity>{
+        return await this.supplierEntityRepo.findOneBy({email});
     }
 
-    addSupplier(su: SupplierDto){
-        Supplier.push(su);
+    async addSupplier(su: SupplierDto): Promise<string>{
+        let password = su.password;
+        const userRepo = await this.supplierEntityRepo.create({...su, password});
+        await this.supplierEntityRepo.save(userRepo);
         return 'User Added';
     }
 
-    removeSupplier(su_id: number){
-        Supplier = Supplier.filter((su) => su.su_id != su_id);
-        return Supplier;
+    async removeSupplier(su_id: number): Promise<string>{
+        await this.supplierEntityRepo.delete({su_id});
+        return 'User Removed';
     }
 
-    updateSupplier(su: SupplierDto, su_id: number ){
-        let userIndex = 0;
-        Supplier.forEach((su, index)=>{
-            if(su.su_id == su_id){
-                userIndex = index;
-            }
-        });
-
-        Supplier[userIndex] = su;
-        return Supplier;
+    async updateSupplier(su: SupplierDto, su_id: number ): Promise<string>{
+        await this.supplierEntityRepo.update({su_id}, {...su});
+        return 'User Updated';
     }
 }

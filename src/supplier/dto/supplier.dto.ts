@@ -2,10 +2,6 @@ import { IsEmail, IsInt, IsNotEmpty, IsNumber, IsString, Length, MinLength } fro
 
 export class SupplierDto{
     @IsNotEmpty()
-    @IsInt()
-    su_id: number;
-
-    @IsNotEmpty()
     @IsString()
     @IsEmail()
     email: string;
