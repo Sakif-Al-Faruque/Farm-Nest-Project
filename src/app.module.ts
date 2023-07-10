@@ -11,22 +11,35 @@ import { StaffModule } from './staff/staff.module';
 import { CategoryModule } from './category/category.module';
 import { SalesReportModule } from './sales_report/sales_report.module';
 import { ProductModule } from './product/product.module';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Staff } from './staff/database/staff.entity';
+import { HashingModule } from './hashing/hashing.module';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({isGlobal: true}), 
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'dekhona',
-      database: 'mydb',
-      entities: [Staff],
-      synchronize: true,
+      host: process.env.POSTGRES_HOST,
+      port: parseInt(<string>process.env.POSTGRES_PORT),
+      username: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DATABASE,
+      autoLoadEntities: true,
+      entities: [],
+      synchronize: true
     }),
-    SupplierModule, DeliveryManModule, LogModule, OrderModule, SupplierAuthModule, DeliveryManAuthModule, StaffModule, CategoryModule, SalesReportModule, ProductModule],
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp-relay.brevo.com',
+        auth: {
+          user: 'rs.expoit123@gmail.com',
+          pass: 'xsmtpsib-b53e719b92b33fb4f3064487e4c6f93725e54e68efefad79ef2fd7237ef18599-AKpqUn2s591c4ZO0'
+        }
+      }
+    }),
+    SupplierModule, DeliveryManModule, LogModule, OrderModule, SupplierAuthModule, DeliveryManAuthModule, StaffModule, CategoryModule, SalesReportModule, ProductModule, HashingModule],
   controllers: [AppController],
   providers: [AppService],
 })
