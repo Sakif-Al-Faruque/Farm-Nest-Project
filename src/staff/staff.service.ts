@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { StaffDto } from './dto/staff.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Staff } from './database/staff.entity'; 
 
 let staffs = [
     {
@@ -48,37 +51,34 @@ let staffs = [
 
 @Injectable()
 export class StaffService {
-    getAllStaff(){
-        return staffs;
+    
+    constructor(@InjectRepository(Staff)
+    private staffRepo: Repository<Staff>){}
+
+    async getAllStaff(): Promise<any>{
+        return this.staffRepo.find();
     }
 
-    getStaffById(sid: number){
-        return staffs.find((staff) => staff.sid === sid);
+    async getStaffById(sid: number): Promise<any>{
+        return this.staffRepo.findOneBy({sid});
     }
 
-    getStaffByEmail(email: string){
-        return staffs.find((staff) => staff.email === email);
-    }
+    // async getStaffByEmail(email: string): Promise<any>{
+    //     return staffs.find((staff) => staff.email === email);
+    // }
 
-    addStaff(staff: StaffDto){
-        staffs.push(staff);
+    async addStaff(staff: StaffDto): Promise<any>{
+        this.staffRepo.save(staff);
         return 'User Added';
     }
 
-    removeStaff(sid: number){
-        staffs = staffs.filter((staff) => staff.sid != sid);
-        return staffs;
+    async removeStaff(sid: number): Promise<any>{
+        this.staffRepo.delete(sid)
+        return "staff deleted";
     }
 
-    updateStaff(staff: StaffDto, sid: number ){
-        let userIndex = 0;
-        staffs.forEach((staff, index)=>{
-            if(staff.sid == sid){
-                userIndex = index;
-            }
-        });
-
-        staffs[userIndex] = staff;
-        return staffs;
+    async updateStaff(staff: StaffDto, sid: number ): Promise<any>{
+        this.staffRepo.update({sid}, {...staff});
+        return "staff data updated";
     }
 }

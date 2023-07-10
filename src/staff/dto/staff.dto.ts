@@ -1,8 +1,8 @@
 import { IsNotEmpty, Length, IsEmail, IsNumber, IsString, IsBoolean, IsInt } from "class-validator";
 
 export class StaffDto{
-    @IsInt()
-    sid:number
+    // @IsInt()
+    // sid:number
 
     @IsEmail()
     email:string

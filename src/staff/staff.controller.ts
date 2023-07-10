@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Patch, Param, Body, ParseIntPipe, Session} from '@nestjs/common';
+import { Controller, Get, Post, Delete, Patch, Param, Body, ParseIntPipe, Session, Put} from '@nestjs/common';
 import { StaffService } from './staff.service';
 import { StaffDto } from './dto/staff.dto';
 
@@ -26,7 +26,7 @@ export class StaffController {
         return this.staffService.removeStaff(id);
     }
 
-    @Patch(':sid')
+    @Put(':sid')
     changeSupplier(@Body() staff: StaffDto, @Param('sid', ParseIntPipe) id: number){
         return this.staffService.updateStaff(staff, id);
     }
