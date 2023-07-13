@@ -1,4 +1,4 @@
-import { IsNotEmpty, Length, IsEmail, IsNumber, IsString, IsBoolean, IsInt } from "class-validator";
+import { IsNotEmpty, IsEmail, IsNumber, IsString, IsBoolean, IsInt, MinLength } from "class-validator";
 
 export class StaffDto{
     // @IsInt()
@@ -16,7 +16,7 @@ export class StaffDto{
     @IsString()
     gender:string
 
-    @Length(8)
+    @MinLength(8)
     password:string
 
     @IsString()
