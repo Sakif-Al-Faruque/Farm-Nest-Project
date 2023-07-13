@@ -15,6 +15,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HashingModule } from './hashing/hashing.module';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { StaffAuthModule } from './staff/staff-auth/staff-auth.module';
 
 @Module({
   imports: [
@@ -39,7 +40,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
         }
       }
     }),
-    SupplierModule, DeliveryManModule, LogModule, OrderModule, SupplierAuthModule, DeliveryManAuthModule, StaffModule, CategoryModule, SalesReportModule, ProductModule, HashingModule],
+    SupplierModule, DeliveryManModule, LogModule, OrderModule, SupplierAuthModule, DeliveryManAuthModule, StaffModule, CategoryModule, SalesReportModule, ProductModule, HashingModule, StaffAuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
