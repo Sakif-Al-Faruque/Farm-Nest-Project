@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Delete, Patch, Param, Body, ParseIntPipe, Session, Put} from '@nestjs/common';
+import { Controller, Get, Post, Delete, Patch, Param, Body, ParseIntPipe, Session } from '@nestjs/common';
 import { StaffService } from './staff.service';
 import { StaffDto } from './dto/staff.dto';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Controller('staff')
 export class StaffController {
-    constructor(private staffService: StaffService){}
+    constructor(private staffService: StaffService, private mailService: MailerService){}
 
     @Get()
     showSuppliers(){
@@ -17,7 +18,13 @@ export class StaffController {
     }
 
     @Post()
-    createSupplier(@Body() staff: StaffDto){
+    async createStaff(@Body() staff: StaffDto){
+        this.mailService.sendMail({
+            to: staff.email,
+            from: 'rs.expoit123@gmail.com',
+            subject: 'Account Creation Mail',
+            text: `Welcome ${staff.first_name}. Your account has been created successfully!`
+        });
         return this.staffService.addStaff(staff);
     }
 
