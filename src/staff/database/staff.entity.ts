@@ -46,7 +46,8 @@ export class Staff{
     @Column()
     phone_no:string
 
-    image:string 
+    @Column()
+    image:string
     
     @Column()
     approved_status:boolean

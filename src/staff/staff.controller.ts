@@ -26,7 +26,7 @@ export class StaffController {
         return this.staffService.removeStaff(id);
     }
 
-    @Put(':sid')
+    @Patch(':sid')
     changeSupplier(@Body() staff: StaffDto, @Param('sid', ParseIntPipe) id: number){
         return this.staffService.updateStaff(staff, id);
     }
@@ -34,6 +34,5 @@ export class StaffController {
     @Get('auth/test')
     testing(@Session() ss:Record<string, any>){
         return ss.email;
-        //return 'he'
     }
 }

@@ -4,51 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Staff } from './database/staff.entity'; 
 
-let staffs = [
-    {
-        sid:72645,
-        email:"ami@tumi.com",
-        first_name:"Ami",
-        last_name:"Tumi",
-        gender:"male",
-        password:"12345678",
-        dob:"1995-09-20",
-        house_no: 121,
-        road: "kazi nazrul islam avenue",
-        area: "karwanbazar",
-        police_station: "vatara",
-        district: "dhaka",
-        division: "dhaka",
-        nationality:"Bangladeshi",
-        phone_no: "01999777777",
-        image: "img1.jpg",
-        approved_status:false,
-        approved_by: 1140,
-        account_status: "pending"
-    },
-    {
-        sid:48237,
-        email:"tumi@ami.com",
-        first_name:"Tumi",
-        last_name:"Ami",
-        gender:"female",
-        password:"12345678",
-        dob:"1995-09-20",
-        house_no: 121,
-        road: "kazi nazrul islam avenue",
-        area: "karwanbazar",
-        police_station: "vatara",
-        district: "dhaka",
-        division: "dhaka",
-        nationality:"Bangladeshi",
-        phone_no: "01999777777",
-        image: "img1.jpg",
-        approved_status:false,
-        approved_by: 1140,
-        account_status: "pending"
-    }
-]
-
 @Injectable()
 export class StaffService {
     
