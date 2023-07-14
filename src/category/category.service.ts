@@ -4,19 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CategoryEntity } from './entity/category.entity';
 import { Repository } from 'typeorm';
 
-let categories = [
-    {
-        ca_id: 324521,
-        caname: "Agro Food",
-        unit: 8
-    },
-    {
-        ca_id: 923734,
-        caname: "Medicine",
-        unit: 5
-    }
-]
-
 @Injectable()
 export class CategoryService {
 
