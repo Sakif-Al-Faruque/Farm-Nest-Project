@@ -1,9 +1,6 @@
 import { IsNotEmpty, IsNumber, IsInt, IsString, IsBoolean} from "class-validator";
 
 export class SalesReportDto{
-    @IsInt()
-    sale_id: number
-
     @IsString()
     sale_name: string
 

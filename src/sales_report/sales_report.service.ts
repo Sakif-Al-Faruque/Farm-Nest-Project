@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { SalesReportDto } from './dto/sales_report.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { SalesReportEntity } from './entity/sales_report.entity';
+import { Repository } from 'typeorm';
 
 let sales_reports = [
     {
@@ -28,33 +31,32 @@ let sales_reports = [
 
 @Injectable()
 export class SalesReportService {
-    getAllReports(){
-        return sales_reports;
+
+    constructor(
+        @InjectRepository(SalesReportEntity)
+        private salesReportRepository: Repository<SalesReportEntity>
+    ){}
+
+    async getAllReports(): Promise<SalesReportEntity[]>{
+        return await this.salesReportRepository.find()
     }
 
-    getSingleReport(sale_id: number){
-        return sales_reports.find((report) => report.sale_id === sale_id);
+    async getSingleReport(sale_id: number): Promise<SalesReportEntity>{
+        return await this.salesReportRepository.findOneBy({sale_id})
     }
 
-    addReport(report: SalesReportDto){
-        sales_reports.push(report);
-        return sales_reports;
+    async addReport(report: SalesReportDto): Promise<string>{
+        await this.salesReportRepository.save(report)
+        return "sales_report added"
     }
 
-    updateReport(report: SalesReportDto, sale_id: number){
-        let userIndex = 0;
-        sales_reports.forEach((report, index)=>{
-            if(report.sale_id == sale_id){
-                userIndex = index;
-            }
-        });
-
-        sales_reports[userIndex] = report;
-        return sales_reports;
+    async updateReport(report: SalesReportDto, sale_id: number): Promise<string>{
+        await this.salesReportRepository.update({sale_id}, {...report})
+        return "sales_report updated"
     }
 
-    removeReport(sale_id: number){
-        sales_reports = sales_reports.filter((report) => report.sale_id != sale_id);
-        return sales_reports;
+    async removeReport(sale_id: number): Promise<string>{
+        await this.salesReportRepository.delete({sale_id})
+        return "sales_report deleted"
     }
 }
