@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CategoryDto } from './dto/category.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { CategoryEntity } from './entity/category.entity';
+import { Repository } from 'typeorm';
 
 let categories = [
     {
@@ -16,33 +19,32 @@ let categories = [
 
 @Injectable()
 export class CategoryService {
-    getAllCategories(){
-        return categories;
+
+    constructor(
+        @InjectRepository(CategoryEntity)
+        private categoryRepo: Repository<CategoryEntity>
+    ){}
+
+    async getAllCategories():Promise<CategoryEntity[]>{
+        return await this.categoryRepo.find();
     }
 
-    getSingleCategory(ca_id: number){
-        return categories.find((category)=> category.ca_id === ca_id);
+    async getSingleCategory(ca_id: number):Promise<CategoryEntity>{
+        return await this.categoryRepo.findOneBy({ca_id});
     }
 
-    addCategory(category: CategoryDto){
-        categories.push(category);
+    async addCategory(category: CategoryDto): Promise<string>{
+        await this.categoryRepo.save(category)
         return 'Category Added';
     }
 
-    updateCategory(category: CategoryDto, ca_id: number){
-        let userIndex = 0;
-        categories.forEach((category, index)=>{
-            if(category.ca_id === ca_id){
-                userIndex = index;
-            }
-        });
-
-        categories[userIndex] = category;
-        return categories;
+    async updateCategory(category: CategoryDto, ca_id: number):Promise<string>{
+        await this.categoryRepo.update({ca_id}, {...category})
+        return "category updated";
     }
 
-    removeCategory(ca_id: number){
-        categories = categories.filter((category)=> category.ca_id != ca_id);
-        return categories;
+    async removeCategory(ca_id: number):Promise<string>{
+        await this.categoryRepo.delete({ca_id})
+        return "category deleted";
     }
 }
