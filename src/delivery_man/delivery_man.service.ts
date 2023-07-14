@@ -1,8 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { DeliveryManDto } from './dto/delivery_man.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { DeliveryManEntity } from './enitity/delivery_man.entity';
+import { HashingService } from 'src/hashing/hashing.service';
 
 
-let Delivery_man = [
+/* let Delivery_man = [
     {
         d_id: 110,
         email: "john@g.co",
@@ -41,10 +45,17 @@ let Delivery_man = [
         approved_by: 1150,
         account_status: "approved"
     },
-];
+]; */
 @Injectable()
 export class DeliveryManService {
-    getAllDeliveryMan(){
+
+
+    constructor(@InjectRepository(DeliveryManEntity)
+    private deliveryManRepo: Repository<DeliveryManEntity>,
+    private readonly hashingService: HashingService
+    ){}
+
+    /* getAllDeliveryMan(){
         return Delivery_man;
     }
 
@@ -76,5 +87,52 @@ export class DeliveryManService {
 
         Delivery_man[userIndex] = dmu;
         return Delivery_man;
+    } */
+
+    
+    
+
+    async getAllDeliveryMan(): Promise<DeliveryManEntity[]>{
+        return await this.deliveryManRepo.find();
     }
+
+    async getDeliveryManById(d_id: number): Promise<DeliveryManEntity>{
+        return await this.deliveryManRepo.findOneBy({d_id});
+    }
+
+    async getDeliveryManByEmail(email: string): Promise<DeliveryManEntity>{
+        return await this.deliveryManRepo.findOneBy({email});
+    }
+
+    async addDeliveryMan(deliveryMan: DeliveryManDto): Promise<string>{
+        let password = await this.hashingService.encodText(deliveryMan.password);
+        const userRepo = await this.deliveryManRepo.create({...deliveryMan, password});
+        await this.deliveryManRepo.save(userRepo);
+        return 'User Added';
+    }
+
+    async removeDeliveryMan(d_id: number): Promise<string>{
+        await this.deliveryManRepo.delete(d_id)
+        return "User deleted";
+    }
+
+    async updateDeliveryMan(deliveryMan: DeliveryManDto, d_id: number ): Promise<string>{
+        await this.deliveryManRepo.update({d_id}, {...deliveryMan});
+        return "User data updated";
+    }
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

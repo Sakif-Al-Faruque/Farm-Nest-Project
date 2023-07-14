@@ -16,6 +16,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { HashingModule } from './hashing/hashing.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { StaffAuthModule } from './staff/staff-auth/staff-auth.module';
+import { Staff } from './staff/database/staff.entity';
+import { SupplierEntity } from './supplier/enitity/supplier.entity';
+import { DeliveryManEntity } from './delivery_man/enitity/delivery_man.entity';
 
 @Module({
   imports: [
@@ -28,7 +31,7 @@ import { StaffAuthModule } from './staff/staff-auth/staff-auth.module';
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
       autoLoadEntities: true,
-      entities: [],
+      entities: [Staff, SupplierEntity, DeliveryManEntity],
       synchronize: true
     }),
     MailerModule.forRoot({
