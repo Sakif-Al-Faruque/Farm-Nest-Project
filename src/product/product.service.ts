@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ProductDto } from './dto/product.dto';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ProductEntity } from './entity/product.entity';
 
 let products = [
     {
@@ -40,33 +43,32 @@ let products = [
 
 @Injectable()
 export class ProductService {
-    getAllProduct(){
-        return products;
+
+    constructor(
+        @InjectRepository(ProductEntity)
+        private productRepo: Repository<ProductEntity>
+    ){}
+
+    async getAllProduct(): Promise<ProductEntity[]>{
+        return await this.productRepo.find();
     }
 
-    getSingleProduct(p_id: number){
-        return products.find((product) => product.p_id === p_id);
+    async getSingleProduct(p_id: number): Promise<ProductEntity>{
+        return await this.productRepo.findOneBy({p_id})
     }
 
-    addProduct(product: ProductDto){
-        products.push(product);
-        return products;
+    async addProduct(product: ProductDto): Promise<string>{
+        await this.productRepo.save(product)
+        return "product added";
     }
 
-    updateProduct(product: ProductDto, p_id: number){
-        let userIndex = 0;
-        products.forEach((product, index)=>{
-            if(product.p_id == p_id){
-                userIndex = index;
-            }
-        });
-
-        products[userIndex] = product;
-        return products;
+    async updateProduct(product: ProductDto, p_id: number): Promise<string>{
+        await this.productRepo.update({p_id}, {...product})
+        return "product updated";
     }
 
-    removeProduct(p_id: number){
-        products = products.filter((product) => product.p_id != p_id);
-        return products;
+    async removeProduct(p_id: number): Promise<string>{
+        await this.productRepo.delete({p_id})
+        return "product deleted";
     }
 }

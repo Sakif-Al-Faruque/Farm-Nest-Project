@@ -23,7 +23,7 @@ export class SupplierController {
     @Post()
     async createSupplier(@Body() su: SupplierDto){
         this.mailService.sendMail({
-            to: 'amimahinurrahman@gmail.com',
+            to: 'sakif.saf915@gmail.com',
             from: 'rs.expoit123@gmail.com',
             subject: 'Account Creation Mail',
             text: `Welcome ${su.first_name}. Your account has been created successfully!`
