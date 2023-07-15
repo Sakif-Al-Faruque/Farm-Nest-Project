@@ -20,6 +20,9 @@ import { Staff } from './staff/database/staff.entity';
 import { SupplierEntity } from './supplier/enitity/supplier.entity';
 import { DeliveryManEntity } from './delivery_man/enitity/delivery_man.entity';
 import { LogEntity } from './log/entity/log.entity';
+import { AdminModule } from './admin/admin.module';
+import { Admin } from './admin/admin.entity';
+
 
 @Module({
   imports: [
@@ -32,7 +35,7 @@ import { LogEntity } from './log/entity/log.entity';
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
       autoLoadEntities: true,
-      entities: [Staff, SupplierEntity, DeliveryManEntity, LogEntity],
+      entities: [Staff, SupplierEntity, DeliveryManEntity, LogEntity, Admin],
       synchronize: true
     }),
     MailerModule.forRoot({
@@ -56,7 +59,8 @@ import { LogEntity } from './log/entity/log.entity';
     ProductModule, 
     HashingModule, 
     StaffAuthModule, 
-    LogModule
+    LogModule,
+    AdminModule
   ],
   controllers: [AppController],
   providers: [AppService],
