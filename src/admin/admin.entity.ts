@@ -3,50 +3,47 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity({name:"Admins"})
 export class Admin
 {
-    @PrimaryGeneratedColumn({name: "Admin Id"})
-    aid:number
+    @PrimaryGeneratedColumn({name:"Admin id"})
+    aid:number;
 
-    @Column({name: "First Name"})
-    first_name:string
+    @Column({name:"First Name"})
+    first_name: string;
 
-    @Column({name: "Last Name"})
-    last_name:string
+    @Column({name:"Last Name"})
+    last_name: string;
 
-    @Column({name: "Email"})
-    email:string
+    @Column({name:"Email"})
+    email:string;
 
     @Column({name:"Gender"})
-    gender:string
+    gender:string;
 
     @Column({name:"Password"})
-    password:string
+    password:string;
 
     @Column({name:"Date of Birth"})
-    dob:string
+    dob: string;
 
-    @Column({name:"House No"})
-    house_no:number
+    @Column({name:"House No."})
+    house_no:string;
 
     @Column({name:"Road"})
-    road:number
-
-    @Column({name:"Area"})
-    area:string
+    road:string;
 
     @Column({name:"Police Station"})
-    ploice_station:string
+    police_station:string
 
     @Column({name:"District"})
-    district:string
+    district: string;
 
     @Column({name:"Division"})
-    division:string
+    division: string;
 
-    @Column({name:"Phone no"})
-    phone_no:number
+    @Column({name:"Phone Number"})
+    phone_no:string;
 
-    @Column({name:"Image"})
-    image:string
+    @Column({name:"Image",default:null})
+    image:string;
 
 }
 

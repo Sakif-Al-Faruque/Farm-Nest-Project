@@ -17,6 +17,8 @@ import { HashingModule } from './hashing/hashing.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { StaffAuthModule } from './staff/staff-auth/staff-auth.module';
 import { AdminModule } from './admin/admin.module';
+import { Admin } from './admin/admin.entity';
+import { Staff } from './staff/database/staff.entity';
 
 @Module({
   imports: [
@@ -29,7 +31,7 @@ import { AdminModule } from './admin/admin.module';
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
       autoLoadEntities: true,
-      entities: [],
+      entities: [Admin],
       synchronize: true
     }),
     MailerModule.forRoot({
