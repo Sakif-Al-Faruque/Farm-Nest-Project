@@ -20,35 +20,14 @@ import { ReviewEntity } from 'src/review/entity/review.entity';
         // district:"Dhaka",
         // division:"Dhaka",
         // nationality:"Bangladeshi",
-        // phone_no:"01784949487",
+        // phone_no:"",
         // image:"",
         // total_points:"",
         // total_order:"",
         // status:""
 
 
-//     },
-//     {
-//         cid:"101",
-//         email:"ruhul@gmail.com",
-//         first_name:"Ruhul",
-//         last_name:"Amin",
-//         gender:"Male",
-//         password:"",
-//         dob:2/11/2000,
-//         house_no:"50",
-//         road:"10",
-//         area:"Paharpur",
-//         police_station:"Khilkhet",
-//         district:"Dinajpur",
-//         division:"Rangpur",
-//         nationality:"Bangladeshi",
-//         phone_no:"01714514514",
-//         image:"",
-//         total_points:"",
-//         total_order:"",
-//         status:""
-//     },
+//     }
 // ];
 @Injectable()
 export class CustomerService {

@@ -6,6 +6,10 @@ import { reviewDto } from "./reviewDto.dto";
 
 
 
+// "description": "string",
+// "rating": "string",
+// "review_date": "string"
+
  @Injectable()
 export class ReviewService {
 

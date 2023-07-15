@@ -5,6 +5,12 @@ import { Repository } from "typeorm";
 import { offerDto } from "./offerDto.dto";
 import { ReviewEntity } from "src/review/entity/review.entity";
 
+
+// "ofname": "string",
+// "discount": "string",
+// "valid_date": "string",
+// "assign_date": "string"
+
 @Injectable()
 export class OfferService {
 

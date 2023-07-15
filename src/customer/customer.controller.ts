@@ -32,7 +32,7 @@ export class CustomerController {
 
   //update
   @Put(':cid')
-  async update (@Param('cid') cid: number, @Body() customer: CustomerDto): Promise<any> {
+  async update (@Param('cid') cid: number, @Body() customer: CustomerEntity): Promise<any> {
     return this.customerService.update(cid, customer);
   }
 

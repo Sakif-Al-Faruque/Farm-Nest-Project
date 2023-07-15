@@ -58,6 +58,9 @@ export class CustomerEntity{
   total_bonus: string;
 
   @Column()
+  total_order: string;
+
+  @Column()
   status: string;
 
 
