@@ -22,6 +22,12 @@ import { DeliveryManEntity } from './delivery_man/enitity/delivery_man.entity';
 import { LogEntity } from './log/entity/log.entity';
 import { AdminModule } from './admin/admin.module';
 import { Admin } from './admin/admin.entity';
+import { CustomerModule } from './customer/customer.module';
+import { CustomerEntity } from './customer/entity/customer.entity';
+import { OfferEntity } from './offer/entity/offer.entity';
+import { ReviewEntity } from './review/entity/review.entity';
+import { ReviewModule } from './review/review.module';
+import { OfferModule } from './offer/offer.module';
 
 
 @Module({
@@ -35,7 +41,16 @@ import { Admin } from './admin/admin.entity';
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
       autoLoadEntities: true,
-      entities: [Staff, SupplierEntity, DeliveryManEntity, LogEntity, Admin],
+      entities: [
+        Staff, 
+        SupplierEntity, 
+        DeliveryManEntity, 
+        LogEntity, 
+        Admin,
+        CustomerEntity, 
+        OfferEntity, 
+        ReviewEntity
+      ],
       synchronize: true
     }),
     MailerModule.forRoot({
@@ -60,7 +75,10 @@ import { Admin } from './admin/admin.entity';
     HashingModule, 
     StaffAuthModule, 
     LogModule,
-    AdminModule
+    AdminModule,
+    CustomerModule,
+    ReviewModule,
+    OfferModule 
   ],
   controllers: [AppController],
   providers: [AppService],
