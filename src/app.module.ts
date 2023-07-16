@@ -58,7 +58,7 @@ import { OfferModule } from './offer/offer.module';
         host: 'smtp-relay.brevo.com',
         auth: {
           user: 'rs.expoit123@gmail.com',
-          pass: 'xsmtpsib-b53e719b92b33fb4f3064487e4c6f93725e54e68efefad79ef2fd7237ef18599-AKpqUn2s591c4ZO0'
+          pass: 'E2kMOwLdZ6aCyINh'
         }
       }
     }),

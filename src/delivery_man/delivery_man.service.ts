@@ -55,42 +55,6 @@ export class DeliveryManService {
     private readonly hashingService: HashingService
     ){}
 
-    /* getAllDeliveryMan(){
-        return Delivery_man;
-    }
-
-    getDeliveryManById(d_id: number){
-        return Delivery_man.find((dm) => dm.d_id === d_id);
-    }
-
-    getDeliveryManByEmail(email: string){
-        return Delivery_man.find((dm) => dm.email === email);
-    }
-
-    addDeliveryMan(dm: DeliveryManDto){
-        Delivery_man.push(dm);
-        return 'User Added';
-    }
-
-    removeDeliveryMan(d_id: number){
-        Delivery_man = Delivery_man.filter((dm) => dm.d_id != d_id);
-        return Delivery_man;
-    }
-
-    updateDeliveryMan(dmu: DeliveryManDto, d_id: number ){
-        let userIndex = 0;
-        Delivery_man.forEach((dm, index)=>{
-            if(dm.d_id == d_id){
-                userIndex = index;
-            }
-        });
-
-        Delivery_man[userIndex] = dmu;
-        return Delivery_man;
-    } */
-
-    
-    
 
     async getAllDeliveryMan(): Promise<DeliveryManEntity[]>{
         return await this.deliveryManRepo.find();
