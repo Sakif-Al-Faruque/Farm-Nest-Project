@@ -28,7 +28,8 @@ import { OfferEntity } from './offer/entity/offer.entity';
 import { ReviewEntity } from './review/entity/review.entity';
 import { ReviewModule } from './review/review.module';
 import { OfferModule } from './offer/offer.module';
-
+import { OrderTrackingModule } from './order_tracking/order_tracking.module';
+import { NotificationBoxModule } from './notification_box/notification_box.module';
 
 @Module({
   imports: [
@@ -78,7 +79,9 @@ import { OfferModule } from './offer/offer.module';
     AdminModule,
     CustomerModule,
     ReviewModule,
-    OfferModule 
+    OfferModule ,
+    OrderTrackingModule, 
+    NotificationBoxModule
   ],
   controllers: [AppController],
   providers: [AppService],
