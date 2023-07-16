@@ -42,7 +42,7 @@ export class ProductEntity{
     offer:boolean
 
     @Column()
-    suid:number //fk
+    su_id:number //fk
 
     @Column()
     approved_by:number //fk
@@ -50,7 +50,7 @@ export class ProductEntity{
     @Column()
     account_status:string
 
-    @ManyToOne(() => Staff)
+    /* @ManyToOne(() => Staff)
     @JoinColumn({ name: 'approved_by' })
     approvedby: Staff;
 
@@ -59,6 +59,6 @@ export class ProductEntity{
     category: CategoryEntity;
 
     @ManyToOne(() => SupplierEntity)
-    @JoinColumn({ name: 'suid' })
-    supplier: CategoryEntity;
+    @JoinColumn({ name: 'su_id' })
+    supplier: CategoryEntity; */
 }

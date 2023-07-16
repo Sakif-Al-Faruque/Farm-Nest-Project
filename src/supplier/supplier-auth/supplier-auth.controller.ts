@@ -15,8 +15,9 @@ export class SupplierAuthController {
     async login(@Body() usr: SupplierLoginDto, @Session() ss: Record<string, any>){
         let {fetchedUsr, log_id} = await this.supplierAuthService.validate(usr);
         if(fetchedUsr){
-            ss.email = fetchedUsr.email;
-            ss.userLogId = log_id;
+            ss.supplierId = fetchedUsr.su_id;
+            ss.supplierEmail = fetchedUsr.email;
+            ss.supplierLogId = log_id;
             return 'Authenticated';
         }
 
@@ -25,7 +26,7 @@ export class SupplierAuthController {
 
     @Post('logout')
     async logout(@Session() ss: Record<string, any>): Promise<any>{
-        let {log_id, log_time, u_email} = await this.logService.getLogById(ss.userLogId);
+        let {log_id, log_time, u_email} = await this.logService.getLogById(ss.supplierLogId);
         let logout_time = "dummy from log out";
         this.logService.updateLog({log_time, u_email, logout_time}, log_id)
         ss.destroy();
