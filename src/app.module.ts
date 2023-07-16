@@ -19,6 +19,8 @@ import { StaffAuthModule } from './staff/staff-auth/staff-auth.module';
 import { AdminModule } from './admin/admin.module';
 import { Admin } from './admin/admin.entity';
 import { Staff } from './staff/database/staff.entity';
+import { OrderTrackingModule } from './order_tracking/order_tracking.module';
+import { NotificationBoxModule } from './notification_box/notification_box.module';
 
 @Module({
   imports: [
@@ -43,7 +45,7 @@ import { Staff } from './staff/database/staff.entity';
         }
       }
     }),
-    SupplierModule, DeliveryManModule, LogModule, OrderModule, SupplierAuthModule, DeliveryManAuthModule, StaffModule, CategoryModule, SalesReportModule, ProductModule, HashingModule, StaffAuthModule, AdminModule],
+    SupplierModule, DeliveryManModule, LogModule, OrderModule, SupplierAuthModule, DeliveryManAuthModule, StaffModule, CategoryModule, SalesReportModule, ProductModule, HashingModule, StaffAuthModule, AdminModule, OrderTrackingModule, NotificationBoxModule],
   controllers: [AppController],
   providers: [AppService],
 })
