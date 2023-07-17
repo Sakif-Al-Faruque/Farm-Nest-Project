@@ -1,30 +1,30 @@
 import { Column, Entity,PrimaryGeneratedColumn } from "typeorm";
 
 
-@Entity({name:"Order-Trackings"})
+@Entity({name:"Order_Trackings"})
 export class OrderTracking
 {
-    @PrimaryGeneratedColumn({name: "Order-Tracking Id"})
-    otid:number
+    @PrimaryGeneratedColumn()
+    ot_id:number
 
-    @Column({name:"Packaging"})
-    packaging:string
+    @Column()
+    packaging:boolean;
 
-    @Column({name:"Assigned To"})
-    assigned:string
+    @Column()
+    assigned_to:number;
 
-    @Column({name:"Collected"})
-    collected:string
+    @Column()
+    collected:boolean;
 
-    @Column({name:"Running"})
-    running: string
+    @Column()
+    running: boolean;
 
 
     //ei column e change ashbe.
-    @Column({name:"Delivered"})
-    delivered: string;
+    @Column()
+    delivered: boolean;
 
-    @Column({name:"Receiving Time"})
+    @Column()
     receiving_time:string;
 
 

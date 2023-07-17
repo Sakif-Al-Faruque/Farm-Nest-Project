@@ -1,27 +1,22 @@
-import{ IsNotEmpty } from "class-validator";
+import{ IsBoolean, IsNotEmpty, IsNumber } from "class-validator";
 
 export class OrderTrackingDto
 {
-    
-    @IsNotEmpty({message:"Order-tracking id is needed"})
-    otid:number
+    @IsBoolean({message:"packaging should be a boolean value"})
+    packaging:boolean;
 
-    @IsNotEmpty({message:"packaging is required"})
-    packaging:string
+    @IsNumber()
+    assigned_to:number;
 
-    @IsNotEmpty({message:"Delivery Man Needed"})
-    assigned:string;
+    @IsBoolean({message:"collected should be a boolean value"})
+    collected:boolean;
 
-    @IsNotEmpty({message:"Collection Needed"})
-    collected:string
-
-    @IsNotEmpty({message:"Running details needed"})
-    running: string
+    @IsBoolean({message:"running should be a boolean value"})
+    running: boolean;
 
 
-    @IsNotEmpty({message:"Delivered Data Needed"})
-    delivered: string;
+    @IsBoolean({message:"delivered should be a boolean value"})
+    delivered: boolean;
 
-    @IsNotEmpty({message:"Time of receive needed"})
     receiving_time:string;
 }

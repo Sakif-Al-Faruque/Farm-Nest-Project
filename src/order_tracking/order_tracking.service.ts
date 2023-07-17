@@ -41,9 +41,9 @@ export class OrderTrackingService {
         }
     }
 
-    async updateOrderTrack(otid:number,obj:OrderTrackingDto): Promise<any>
+    async updateOrderTrack(ot_id:number, obj:OrderTrackingDto): Promise<any>
     {
-        const up = await this.orderTrackingRepo.update({otid},{...obj})
+        const up = await this.orderTrackingRepo.update({ot_id}, {...obj})
 
         if(!up)
         {
@@ -62,9 +62,9 @@ export class OrderTrackingService {
         return await this.orderTrackingRepo.find();
     }
 
-    async getOrderTrackinById(otid:number):Promise<any>
+    async getOrderTrackinById(ot_id:number):Promise<any>
     {
-        const track = await this.orderTrackingRepo.findOneBy({otid});
+        const track = await this.orderTrackingRepo.findOneBy({ot_id});
         if(!track)
         {
             return "Could not find id!";
