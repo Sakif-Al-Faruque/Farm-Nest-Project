@@ -14,8 +14,9 @@ export class DeliveryManAuthController {
     async login(@Body() usr: DeliveryManLoginDto, @Session() ss: Record<string, any>){
         let {fetchedUsr, log_id} = await this.deliveryManAuthService.validate(usr);
         if(fetchedUsr){
-            ss.email = fetchedUsr.email;
-            ss.userLogId = log_id;
+            ss.deliveryManId = fetchedUsr.d_id;
+            ss.deliveryManEmail = fetchedUsr.email;
+            ss.deliveryManLogId = log_id;
             return 'Authenticated';
         }
 

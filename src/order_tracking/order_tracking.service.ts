@@ -76,6 +76,8 @@ export class OrderTrackingService {
         }
     }
 
-    
+    async showAllOrdersByDeliveryMan(assigned_to: number): Promise<any>{
+        return await this.orderTrackingRepo.findBy({assigned_to});
+    }
 
 }

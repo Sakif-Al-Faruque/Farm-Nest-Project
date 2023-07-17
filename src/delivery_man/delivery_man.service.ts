@@ -84,19 +84,5 @@ export class DeliveryManService {
         await this.deliveryManRepo.update({d_id}, {...deliveryMan});
         return "User data updated";
     }
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
