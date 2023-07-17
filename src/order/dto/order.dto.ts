@@ -1,15 +1,12 @@
-import { IsEmail, IsInt, IsNotEmpty, IsNumber, IsString, Length, MinLength } from "class-validator";
+import { IsBoolean, IsEmail, IsInt, IsNotEmpty, IsNumber, IsString, Length, MinLength } from "class-validator";
 
 export class OrderDto{
-    @IsNotEmpty()
-    @IsInt()
-    o_id: number;
 
     @IsString()
     order_date: string;
 
-    @IsString()
-    confirmed: string;
+    @IsBoolean()
+    confirmed: boolean;
 
     @IsNumber()
     payable: number;
