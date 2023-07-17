@@ -92,6 +92,12 @@ export class DeliveryManService {
         await this.deliveryManRepo.update({d_id}, {...deliveryMan});
         return "User data updated";
     }
+   
+    //contact mahin
+    async approveDeliveryMan(id: number, newValue: string): Promise<string>{
+        await this.deliveryManRepo.update(id, {account_status: newValue})
+        return 'DeliveryMan approved'
+    }
 
 
     //testing

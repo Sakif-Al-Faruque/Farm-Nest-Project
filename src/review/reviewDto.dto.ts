@@ -1,15 +1,26 @@
-import { IsEmail, IsNotEmpty, IsString, IsDate, IsNumberString  } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, IsDate, IsNumberString, IsNumber, IsInt, IsIn  } from 'class-validator';
 
-export class reviewDto {
+export class ReviewDto {
 
-    @IsNotEmpty()
+    @IsString()
     description: string;
 
-    @IsNotEmpty()
+    @IsNumber()
     rating: string;
 
-    @IsNotEmpty()
+    @IsString()
     review_date: string;
 
+    @IsInt()
+    cid: number
+
+    @IsInt()
+    pid: number
+
+    @IsString()
+    approval: string
+
+    @IsInt()
+    approved_by: number
 
 }
