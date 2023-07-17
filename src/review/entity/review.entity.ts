@@ -1,4 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
+import { Staff } from "src/staff/database/staff.entity";
+import { ProductEntity } from "src/product/entity/product.entity";
+import { CategoryEntity } from "src/category/entity/category.entity";
 
 @Entity('review')
 export class ReviewEntity{
@@ -15,4 +18,27 @@ export class ReviewEntity{
     @Column()
     review_date: string;
 
+    @Column()
+    cid: number
+
+    @Column()
+    pid: number
+
+    @Column()
+    approval: string
+
+    @Column()
+    approved_by: number
+
+    @ManyToOne(() => Staff)
+    @JoinColumn({ name: 'approved_by' })
+    approvedby: Staff;
+
+    @ManyToOne(() => ProductEntity)
+    @JoinColumn({ name: 'pid' })
+    product: ProductEntity;
+
+    @ManyToOne(() => CategoryEntity)
+    @JoinColumn({ name: 'cid' })
+    category: CategoryEntity;
 }

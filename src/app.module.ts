@@ -30,6 +30,8 @@ import { ReviewModule } from './review/review.module';
 import { OfferModule } from './offer/offer.module';
 import { OrderTrackingModule } from './order_tracking/order_tracking.module';
 import { NotificationBoxModule } from './notification_box/notification_box.module';
+import { OrderEntity } from './order/entity/order.entity';
+import { OrderTracking } from './order_tracking/order_tracking.entity';
 
 @Module({
   imports: [
@@ -50,7 +52,9 @@ import { NotificationBoxModule } from './notification_box/notification_box.modul
         Admin,
         CustomerEntity, 
         OfferEntity, 
-        ReviewEntity
+        ReviewEntity,
+        OrderEntity,
+        OrderTracking
       ],
       synchronize: true
     }),
@@ -81,7 +85,8 @@ import { NotificationBoxModule } from './notification_box/notification_box.modul
     ReviewModule,
     OfferModule ,
     OrderTrackingModule, 
-    NotificationBoxModule
+    NotificationBoxModule,
+    OrderModule
   ],
   controllers: [AppController],
   providers: [AppService],

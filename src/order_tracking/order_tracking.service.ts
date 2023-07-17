@@ -12,19 +12,13 @@ export class OrderTrackingService {
     ) {}
 
 
-    async addOrdertrack(obj:OrderTrackingDto):Promise<any>
+    async addOrdertrack(obj:OrderTrackingDto):Promise<OrderTracking>
     {
         const add = await this.orderTrackingRepo.save(obj);
 
-        if(!add)
-        {
-            return "Could not add new order track"
-        }
-
-        else
-        {
-            return "Added";
-        }
+        
+            return add;
+        
     }
 
     async deleteOrderTrack(otid:number):Promise<any>
@@ -41,9 +35,9 @@ export class OrderTrackingService {
         }
     }
 
-    async updateOrderTrack(otid:number,obj:OrderTrackingDto): Promise<any>
+    async updateOrderTrack(ot_id:number, obj:OrderTrackingDto): Promise<any>
     {
-        const up = await this.orderTrackingRepo.update({otid},{...obj})
+        const up = await this.orderTrackingRepo.update({ot_id}, {...obj})
 
         if(!up)
         {
@@ -62,9 +56,9 @@ export class OrderTrackingService {
         return await this.orderTrackingRepo.find();
     }
 
-    async getOrderTrackinById(otid:number):Promise<any>
+    async getOrderTrackinById(ot_id:number):Promise<any>
     {
-        const track = await this.orderTrackingRepo.findOneBy({otid});
+        const track = await this.orderTrackingRepo.findOneBy({ot_id});
         if(!track)
         {
             return "Could not find id!";
@@ -76,6 +70,8 @@ export class OrderTrackingService {
         }
     }
 
-    
+    async showAllOrdersByDeliveryMan(assigned_to: number): Promise<any>{
+        return await this.orderTrackingRepo.findBy({assigned_to});
+    }
 
 }

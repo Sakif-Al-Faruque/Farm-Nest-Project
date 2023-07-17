@@ -1,7 +1,7 @@
 import { Body, Controller,Get,Post,Put, Param, Delete } from "@nestjs/common/decorators";
 import { ReviewService } from "./review.service";
 import { ReviewEntity } from "./entity/review.entity";
-import { reviewDto } from "./reviewDto.dto";
+import { ReviewDto } from "./reviewDto.dto";
 
 
  @Controller('reviews')

@@ -50,7 +50,7 @@ export class ProductEntity{
     @Column()
     account_status:string
 
-    /* @ManyToOne(() => Staff)
+    @ManyToOne(() => Staff)
     @JoinColumn({ name: 'approved_by' })
     approvedby: Staff;
 
@@ -60,5 +60,5 @@ export class ProductEntity{
 
     @ManyToOne(() => SupplierEntity)
     @JoinColumn({ name: 'su_id' })
-    supplier: CategoryEntity; */
+    supplier: SupplierEntity;
 }

@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { ReviewEntity } from "./entity/review.entity";
-import { reviewDto } from "./reviewDto.dto";
+import { ReviewDto } from "./reviewDto.dto";
 
 
 
@@ -19,7 +19,7 @@ export class ReviewService {
     ){}
 
     //create
-    async create(review: reviewDto): Promise<ReviewEntity>{
+    async create(review: ReviewDto): Promise<ReviewEntity>{
         const newreview = this.reviewRepository.create(review);
         return this.reviewRepository.save(newreview);
     }
@@ -36,7 +36,7 @@ export class ReviewService {
 
 
     //update
-    async update(rid: number, review: reviewDto): Promise<ReviewEntity>{
+    async update(rid: number, review: ReviewDto): Promise<ReviewEntity>{
         await this.reviewRepository.update(rid, review);
         return this.reviewRepository.findOne({ where: {rid} });
     }
@@ -47,5 +47,8 @@ export class ReviewService {
          await this.reviewRepository.delete(rid);
     }
 
-
+    async approveReview(id: number, newValue: string): Promise<string>{
+        await this.reviewRepository.update(id, {approval: newValue})
+        return 'Review approval changed'
+    }
 }

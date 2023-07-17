@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Body, Injectable } from '@nestjs/common';
 import { DeliveryManDto } from './dto/delivery_man.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DeliveryManEntity } from './enitity/delivery_man.entity';
 import { HashingService } from 'src/hashing/hashing.service';
+import { OrderTrackingService } from 'src/order_tracking/order_tracking.service';
+import { OrderTracking } from 'src/order_tracking/order_tracking.entity';
 
 
 /* let Delivery_man = [
@@ -50,14 +52,20 @@ import { HashingService } from 'src/hashing/hashing.service';
 export class DeliveryManService {
 
 
-    constructor(@InjectRepository(DeliveryManEntity)
-    private deliveryManRepo: Repository<DeliveryManEntity>,
-    private readonly hashingService: HashingService
+    constructor(
+        @InjectRepository(DeliveryManEntity)
+        private deliveryManRepo: Repository<DeliveryManEntity>,
+        
+        @InjectRepository(OrderTracking)
+        private orderTrackingRepo: Repository<OrderTracking>,
+
+        private readonly hashingService: HashingService,
+        private readonly orderTrackingService: OrderTrackingService
     ){}
 
 
     async getAllDeliveryMan(): Promise<DeliveryManEntity[]>{
-        return await this.deliveryManRepo.find();
+        return await this.deliveryManRepo.find({relations: ['orderTrackings']});
     }
 
     async getDeliveryManById(d_id: number): Promise<DeliveryManEntity>{
@@ -85,18 +93,31 @@ export class DeliveryManService {
         return "User data updated";
     }
    
+    //contact mahin
+    async approveDeliveryMan(id: number, newValue: string): Promise<string>{
+        await this.deliveryManRepo.update(id, {account_status: newValue})
+        return 'DeliveryMan approved'
+    }
 
 
+    //testing
+    async orderTrackingTesting(d: DeliveryManDto){
+        //let d_id = 1;
+        let dm = await this.deliveryManRepo.create({...d});
+        const orderTrackings = await this.orderTrackingRepo.create({
+            packaging: true,
+            assigned_to: 1,
+            collected:true,
+            running: true,
+            delivered: true,
+            receiving_time:"mydate1"
+        });
+        await this.orderTrackingRepo.save(orderTrackings);
 
+        dm.orderTrackings = [orderTrackings];
+        await this.deliveryManRepo.save(dm);
+       // this.deliveryManRepo.update({d_id}, {...dm});
 
-
-
-
-
-
-
-
-
-
-
+        return 'set';
+    }
 }

@@ -1,5 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
 import { Staff } from "src/staff/database/staff.entity";
+import { Admin } from "src/admin/admin.entity";
 
 @Entity('sales_report')
 export class SalesReportEntity{
@@ -25,14 +26,14 @@ export class SalesReportEntity{
     approved_status:boolean
 
     @Column()
-    approved_by: number
+    approved_by: number //fk
 
     @Column()
-    generated_by: number
+    generated_by: number //fk
 
-    // @ManyToOne(() => AdminEntity)
-    // @JoinColumn({ name: 'approved_by' })
-    // generatedBy: Staff;
+    @ManyToOne(() => Admin)
+    @JoinColumn({ name: 'approved_by' })
+    approvedby: Admin;
 
     @ManyToOne(() => Staff)
     @JoinColumn({ name: 'generated_by' })

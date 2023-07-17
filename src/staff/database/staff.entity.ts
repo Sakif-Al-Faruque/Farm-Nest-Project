@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Admin } from 'src/admin/admin.entity';
 
 @Entity()
 export class Staff{
@@ -57,4 +58,8 @@ export class Staff{
 
     @Column()
     account_status:string
+
+    @ManyToOne(() => Admin)
+    @JoinColumn({ name: 'approved_by' })
+    approvedby: Admin;
 }
