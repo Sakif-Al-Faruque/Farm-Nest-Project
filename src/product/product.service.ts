@@ -34,4 +34,10 @@ export class ProductService {
         await this.productRepo.delete({p_id})
         return "product deleted";
     }
+
+    //contact mahin
+    async approveProduct(id: number, newValue: string): Promise<string>{
+        await this.productRepo.update(id, {account_status: newValue})
+        return 'Product approved'
+    }
 }

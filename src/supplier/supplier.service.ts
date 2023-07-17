@@ -43,4 +43,10 @@ export class SupplierService {
         await this.supplierEntityRepo.update({su_id}, {...su});
         return 'User Updated';
     }
+
+    //contact mahin
+    async approveSupplier(id: number, newValue: string): Promise<string>{
+        await this.supplierEntityRepo.update(id, {account_status: newValue})
+        return 'supplier approved'
+    }
 }
