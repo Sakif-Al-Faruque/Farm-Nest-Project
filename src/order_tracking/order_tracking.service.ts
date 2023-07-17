@@ -12,19 +12,13 @@ export class OrderTrackingService {
     ) {}
 
 
-    async addOrdertrack(obj:OrderTrackingDto):Promise<any>
+    async addOrdertrack(obj:OrderTrackingDto):Promise<OrderTracking>
     {
         const add = await this.orderTrackingRepo.save(obj);
 
-        if(!add)
-        {
-            return "Could not add new order track"
-        }
-
-        else
-        {
-            return "Added";
-        }
+        
+            return add;
+        
     }
 
     async deleteOrderTrack(otid:number):Promise<any>

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { OrderTracking } from "src/order_tracking/order_tracking.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('delivery_man')
 export class DeliveryManEntity{
@@ -52,4 +53,8 @@ export class DeliveryManEntity{
 
     @Column()
     account_status: string;
+
+    //relations
+    @OneToMany(() => OrderTracking, orderTrackings => orderTrackings.deliveryMan)
+    orderTrackings: OrderTracking[];
 }

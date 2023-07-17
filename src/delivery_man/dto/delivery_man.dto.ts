@@ -2,10 +2,6 @@ import { IsEmail, IsInt, IsNotEmpty, IsNumber, IsString, Length, MinLength } fro
 
 export class DeliveryManDto{
     @IsNotEmpty()
-    @IsInt()
-    d_id: number;
-
-    @IsNotEmpty()
     @IsString()
     @IsEmail()
     email: string;

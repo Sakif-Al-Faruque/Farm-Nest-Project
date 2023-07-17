@@ -31,6 +31,7 @@ import { OfferModule } from './offer/offer.module';
 import { OrderTrackingModule } from './order_tracking/order_tracking.module';
 import { NotificationBoxModule } from './notification_box/notification_box.module';
 import { OrderEntity } from './order/entity/order.entity';
+import { OrderTracking } from './order_tracking/order_tracking.entity';
 
 @Module({
   imports: [
@@ -52,7 +53,8 @@ import { OrderEntity } from './order/entity/order.entity';
         CustomerEntity, 
         OfferEntity, 
         ReviewEntity,
-        OrderEntity
+        OrderEntity,
+        OrderTracking
       ],
       synchronize: true
     }),

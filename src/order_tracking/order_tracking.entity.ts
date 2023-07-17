@@ -1,4 +1,5 @@
-import { Column, Entity,PrimaryGeneratedColumn } from "typeorm";
+import { DeliveryManEntity } from "src/delivery_man/enitity/delivery_man.entity";
+import { Column, Entity,ManyToOne,PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity({name:"Order_Trackings"})
@@ -28,5 +29,8 @@ export class OrderTracking
     receiving_time:string;
 
 
+    //relations
+    @ManyToOne(() => DeliveryManEntity, deliveryMan => deliveryMan.orderTrackings)
+    deliveryMan: DeliveryManEntity;
 
 } 

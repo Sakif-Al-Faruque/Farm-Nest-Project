@@ -69,6 +69,16 @@ export class DeliveryManController {
             return this.orderTrackingService.updateOrderTrack(id, orderTracking);
         }
         return 'To update the track of orders, log in as delivery man';
+    }
 
+
+
+
+
+    //testing
+    @Get('test-drive/test')
+    async testing(@Body() d:DeliveryManDto){
+        return await this.deliveryManService.orderTrackingTesting(d);
+         
     }
 }
