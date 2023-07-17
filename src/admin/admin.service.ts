@@ -62,5 +62,20 @@ export class AdminService {
             return "Admin deleted!";
         }
     }
+
+    async getAdminByEmail(email:string):Promise<any>
+    {
+        let get = await this.adminRepo.findOneBy({email})
+
+        if(!get)
+        {
+            return "No email found!"
+        }
+
+        else
+        {
+            return get;
+        }
+    }
     
 }
