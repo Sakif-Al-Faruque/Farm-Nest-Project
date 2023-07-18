@@ -29,12 +29,12 @@ export class StaffController {
         ){}
 
     @Get()
-    showSuppliers(){
+    showStaff(@Session() ss: Record<string, any>){
         return this.staffService.getAllStaff();
     }
 
     @Get(':sid')
-    showSupplierById(@Param('sid', ParseIntPipe) id: number){
+    showStaffById(@Param('sid', ParseIntPipe) id: number){
         return this.staffService.getStaffById(id);
     }
 
@@ -50,12 +50,12 @@ export class StaffController {
     }
 
     @Delete(':sid')
-    discardSupplier(@Param('sid', ParseIntPipe) id: number){
+    discardStaff(@Param('sid', ParseIntPipe) id: number){
         return this.staffService.removeStaff(id);
     }
 
     @Patch(':sid')
-    changeSupplier(@Body() staff: StaffDto, @Param('sid', ParseIntPipe) id: number){
+    changeStaff(@Body() staff: StaffDto, @Param('sid', ParseIntPipe) id: number){
         return this.staffService.updateStaff(staff, id);
     }
 

@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsEmail, IsNumber, IsString, IsBoolean, IsInt, MinLength } from "class-validator";
+import { IsNotEmpty, IsEmail, IsNumber, IsString, IsBoolean, IsInt, MinLength, IsOptional } from "class-validator";
 
 export class StaffDto{
     // @IsInt()
@@ -46,6 +46,8 @@ export class StaffDto{
     @IsString()
     phone_no:string
 
+    @IsOptional()
+    @IsString()
     image:string 
     
     @IsBoolean()
