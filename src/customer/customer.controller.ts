@@ -6,6 +6,7 @@ import { ProductService } from 'src/product/product.service';
 import { OrderDto } from 'src/order/dto/order.dto';
 import { OrderService } from 'src/order/order.service';
 import { OrderTrackingService } from 'src/order_tracking/order_tracking.service';
+import { loginDto } from './login.dto';
 
 
 
@@ -19,6 +20,12 @@ export class CustomerController {
 
     ){}
 
+    //login
+    @Post('login')
+    async login(@Body() customer: loginDto): Promise<any>{
+      return await this.customerService.validate(customer);
+
+    }
 
   //create
   @Post()
