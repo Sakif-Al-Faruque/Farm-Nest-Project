@@ -30,12 +30,20 @@ export class StaffController {
 
     @Get()
     showStaff(@Session() ss: Record<string, any>){
-        return this.staffService.getAllStaff();
+        if(ss.staffEmail){
+            return this.staffService.getAllStaff();
+        }else{
+            return 'login first'
+        }
     }
 
     @Get(':sid')
-    showStaffById(@Param('sid', ParseIntPipe) id: number){
-        return this.staffService.getStaffById(id);
+    showStaffById(@Session() ss: Record<string, any>, @Param('sid', ParseIntPipe) id: number){
+        if(ss.staffEmail){
+            return this.staffService.getStaffById(id);
+        }else{
+            return 'login first'
+        }
     }
 
     @Post()
@@ -50,13 +58,21 @@ export class StaffController {
     }
 
     @Delete(':sid')
-    discardStaff(@Param('sid', ParseIntPipe) id: number){
-        return this.staffService.removeStaff(id);
+    discardStaff(@Session() ss: Record<string, any>, @Param('sid', ParseIntPipe) id: number){
+        if(ss.staffEmail){
+            return this.staffService.removeStaff(id);
+        }else{
+            return 'login first'
+        }
     }
 
     @Patch(':sid')
-    changeStaff(@Body() staff: StaffDto, @Param('sid', ParseIntPipe) id: number){
-        return this.staffService.updateStaff(staff, id);
+    changeStaff(@Session() ss: Record<string, any>, @Body() staff: StaffDto, @Param('sid', ParseIntPipe) id: number){
+        if(ss.staffEmail){
+            return this.staffService.updateStaff(staff, id);
+        }else{
+            return 'login first'
+        }
     }
 
 
