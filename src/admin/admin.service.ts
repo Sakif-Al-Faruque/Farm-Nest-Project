@@ -3,12 +3,30 @@ import { InjectRepository } from '@nestjs/typeorm';
 import {Repository } from 'typeorm';
 import { Admin } from './admin.entity';
 import { adminDto } from './dto/admin.dto';
+import { adminLoginDto } from './dto/adminLogin.dto';
 
 @Injectable()
 export class AdminService {
     constructor(@InjectRepository(Admin)
     private adminRepo: Repository<Admin>,
     ){}
+
+    async validate(obj:adminLoginDto)
+    {
+        let email = obj.email;
+        let password = obj.password;
+        let user = await this.adminRepo.findOne({where:{email}})
+
+        if(user && user.password == password)
+        {
+            return user;
+        }
+
+        else
+        {
+            return "login failed!"
+        }
+    }
 
 
     async addAdmin(admin:adminDto): Promise<string>
@@ -60,6 +78,21 @@ export class AdminService {
         else
         {
             return "Admin deleted!";
+        }
+    }
+
+    async getAdminByEmail(email:string):Promise<any>
+    {
+        let get = await this.adminRepo.findOneBy({email})
+
+        if(!get)
+        {
+            return "No email found!"
+        }
+
+        else
+        {
+            return get;
         }
     }
     
