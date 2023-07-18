@@ -10,6 +10,7 @@ export class DeliveryManAuthController {
         private logService: LogService
         ){}
 
+    //Delivery man login
     @Post('login')
     async login(@Body() usr: DeliveryManLoginDto, @Session() ss: Record<string, any>){
         let {fetchedUsr, log_id} = await this.deliveryManAuthService.validate(usr);
@@ -23,6 +24,7 @@ export class DeliveryManAuthController {
         return 'Not authenticated'
     }
 
+    //Delivery man logout
     @Post('logout')
     async logout(@Session() ss: Record<string, any>): Promise<any>{
         let {log_id, log_time, u_email} = await this.logService.getLogById(ss.userLogId);

@@ -3,6 +3,7 @@ import { ProductDto } from './dto/product.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductEntity } from './entity/product.entity';
+import { OrderEntity } from 'src/order/entity/order.entity';
 
 @Injectable()
 export class ProductService {
@@ -13,7 +14,7 @@ export class ProductService {
     ){}
 
     async getAllProduct(): Promise<ProductEntity[]>{
-        return await this.productRepo.find();
+        return await this.productRepo.find({relations:['reviews']});
     }
 
     async getSingleProduct(p_id: number): Promise<ProductEntity>{
@@ -40,4 +41,10 @@ export class ProductService {
         await this.productRepo.update(id, {account_status: newValue})
         return 'Product approved'
     }
+
+    //supplier features
+    async showProductsBySupplierId(su_id: number): Promise<ProductEntity[]>{
+        return await this.productRepo.findBy({su_id});
+    }
+        
 }

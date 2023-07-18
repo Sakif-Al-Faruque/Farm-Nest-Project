@@ -11,7 +11,7 @@ export class ReviewController {
 
     //create
     @Post()
-    async create(@Body() review: ReviewEntity): Promise<ReviewEntity> {
+    async create(@Body() review: ReviewDto): Promise<ReviewEntity> {
       return this.reviewService.create(review);
     }
 
@@ -25,9 +25,6 @@ export class ReviewController {
     @Get(':rid')
     async findOne(@Param('rid') rid: number): Promise<ReviewEntity> {
       const review = await this.reviewService.findOne(rid);
-      // if (!review) {
-      //   throw new ('ReviewEntity does not exist!');
-      // } else {
          return review;
        }
 
@@ -45,11 +42,6 @@ export class ReviewController {
     //delete
     @Delete(':rid')
     async delete(@Param('rid') rid: number): Promise<any> {
-      //handle error if user does not exist
-      const review = await this.reviewService.findOne(rid);
-      // if (!review) {
-      //   throw new ('Review does not exist!');
-      // }
       return this.reviewService.delete(rid);
     }
 

@@ -1,5 +1,5 @@
 import { DeliveryManEntity } from "src/delivery_man/enitity/delivery_man.entity";
-import { Column, Entity,ManyToOne,PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity,JoinColumn,ManyToOne,PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity({name:"Order_Trackings"})
@@ -30,7 +30,8 @@ export class OrderTracking
 
 
     //relations
-    @ManyToOne(() => DeliveryManEntity, deliveryMan => deliveryMan.orderTrackings)
+    @ManyToOne(() => DeliveryManEntity, deliveryMan => deliveryMan.orderTrackings, {onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    @JoinColumn({name: 'assigned_to', referencedColumnName: 'd_id'})
     deliveryMan: DeliveryManEntity;
 
 } 

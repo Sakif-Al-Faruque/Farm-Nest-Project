@@ -18,11 +18,13 @@ export class DeliveryManController {
         return this.deliveryManService.getAllDeliveryMan();
     }
 
+    //preview delivery man's own profile
     @Get(':d_id')
     async showDeliveryManById(@Param('d_id', ParseIntPipe) id: number){
         return this.deliveryManService.getDeliveryManById(id);
     }
 
+    //register as delivery man
     @Post()
     async createDeliveryMan(@Body() dm: DeliveryManDto){
         this.mailService.sendMail({
@@ -34,16 +36,19 @@ export class DeliveryManController {
         return this.deliveryManService.addDeliveryMan(dm);
     }
 
+    //remove own account
     @Delete(':d_id')
     async discardDeliveryMan(@Param('d_id', ParseIntPipe) id: number){
         return this.deliveryManService.removeDeliveryMan(id);
     }
 
+    //change profile
     @Patch(':d_id')
     async changeDeliveryMan(@Body() dm: DeliveryManDto, @Param('d_id', ParseIntPipe) id: number){
         return this.deliveryManService.updateDeliveryMan(dm, id);
     }
 
+    //show all the orders which have to be tracked by a delivery man
     @Get('order_tracking/:d_id')
     async showAllTheAssignedOrders(@Param('d_id', ParseIntPipe) id: number, @Session() ss: Record<string, any>): Promise<any>{
         if(ss.deliveryManEmail){
@@ -54,6 +59,7 @@ export class DeliveryManController {
         
     }
 
+    //confirm the order track for deliverying
     @Patch('order_tracking/confirm/:ot_id')
     async confirmTheOrder(@Body() orderTracking: OrderTrackingDto, @Param('ot_id', ParseIntPipe) id: number, @Session() ss: Record<string, any>): Promise<any>{
         if(ss.deliveryManEmail){
@@ -63,6 +69,7 @@ export class DeliveryManController {
 
     }
 
+    //make the order delivered once, the order is delivered.
     @Patch('order_tracking/delivered/:ot_id')
     async orderDelivered(@Body() orderTracking: OrderTrackingDto, @Param('ot_id', ParseIntPipe) id: number,@Session() ss: Record<string, any>): Promise<any>{
         if(ss.deliveryManEmail){

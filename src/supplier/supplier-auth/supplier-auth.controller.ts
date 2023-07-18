@@ -11,6 +11,7 @@ export class SupplierAuthController {
         private logService: LogService
         ){}
 
+    //supplier login
     @Post('login')
     async login(@Body() usr: SupplierLoginDto, @Session() ss: Record<string, any>){
         let {fetchedUsr, log_id} = await this.supplierAuthService.validate(usr);
@@ -24,6 +25,7 @@ export class SupplierAuthController {
         return 'Not authenticated'
     }
 
+    //supplier logout
     @Post('logout')
     async logout(@Session() ss: Record<string, any>): Promise<any>{
         let {log_id, log_time, u_email} = await this.logService.getLogById(ss.supplierLogId);

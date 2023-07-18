@@ -104,18 +104,19 @@ export class DeliveryManService {
     async orderTrackingTesting(d: DeliveryManDto){
         //let d_id = 1;
         let dm = await this.deliveryManRepo.create({...d});
+        await this.deliveryManRepo.save(dm);
+
         const orderTrackings = await this.orderTrackingRepo.create({
             packaging: true,
-            assigned_to: 1,
+            assigned_to: dm.d_id,
             collected:true,
             running: true,
             delivered: true,
             receiving_time:"mydate1"
         });
-        await this.orderTrackingRepo.save(orderTrackings);
-
+        
         dm.orderTrackings = [orderTrackings];
-        await this.deliveryManRepo.save(dm);
+        await this.orderTrackingRepo.save(orderTrackings);
        // this.deliveryManRepo.update({d_id}, {...dm});
 
         return 'set';

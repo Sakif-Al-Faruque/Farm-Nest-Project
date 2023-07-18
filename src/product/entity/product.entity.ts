@@ -1,7 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, ManyToMany } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, ManyToMany, OneToMany } from "typeorm";
 import { CategoryEntity } from "src/category/entity/category.entity";
 import { SupplierEntity } from "src/supplier/enitity/supplier.entity";
 import { Staff } from "src/staff/database/staff.entity";
+import { ReviewEntity } from "src/review/entity/review.entity";
 
 @Entity('product')
 export class ProductEntity{
@@ -50,7 +51,7 @@ export class ProductEntity{
     @Column()
     account_status:string
 
-    @ManyToOne(() => Staff)
+    /* @ManyToOne(() => Staff)
     @JoinColumn({ name: 'approved_by' })
     approvedby: Staff;
 
@@ -60,5 +61,8 @@ export class ProductEntity{
 
     @ManyToOne(() => SupplierEntity)
     @JoinColumn({ name: 'su_id' })
-    supplier: SupplierEntity;
+    supplier: SupplierEntity; */
+
+    @OneToMany(()=>ReviewEntity, reviews => reviews.product)
+    reviews: ReviewEntity[];
 }

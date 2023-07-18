@@ -30,15 +30,19 @@ export class ReviewEntity{
     @Column()
     approved_by: number
 
-    @ManyToOne(() => Staff)
+    /* @ManyToOne(() => Staff)
     @JoinColumn({ name: 'approved_by' })
-    approvedby: Staff;
+    approvedby: Staff; */
 
-    @ManyToOne(() => ProductEntity)
+    /* @ManyToOne(() => ProductEntity)
     @JoinColumn({ name: 'pid' })
-    product: ProductEntity;
+    product: ProductEntity; */
 
-    @ManyToOne(() => CategoryEntity)
+    /* @ManyToOne(() => CategoryEntity)
     @JoinColumn({ name: 'cid' })
-    category: CategoryEntity;
+    category: CategoryEntity; */
+
+    @ManyToOne(() => ProductEntity, product => product.reviews, {onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    @JoinColumn({name: 'pid', referencedColumnName: 'p_id'})
+    product: ProductEntity;
 }

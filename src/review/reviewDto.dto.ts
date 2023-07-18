@@ -14,8 +14,8 @@ export class ReviewDto {
     @IsInt()
     cid: number
 
-    @IsInt()
-    pid: number
+    /* @IsInt()
+    pid: number */
 
     @IsString()
     approval: string
