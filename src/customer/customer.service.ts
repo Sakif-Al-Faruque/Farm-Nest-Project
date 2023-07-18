@@ -7,6 +7,7 @@ import { ReviewEntity } from 'src/review/entity/review.entity';
 import { OrderEntity } from 'src/order/entity/order.entity';
 import { OrderDto } from 'src/order/dto/order.dto';
 import { ProductEntity } from 'src/product/entity/product.entity';
+import { loginDto } from './login.dto';
 // let customers=[
     // {
         // cid:"100",
@@ -90,6 +91,21 @@ export class CustomerService {
     //cancel order
     async cancelOrder(o_id:number): Promise<any>{
         const order = await this.orderRepository.delete(o_id);
+    }
+
+    // login 
+
+    async validate(obj:loginDto): Promise<any>{
+        let email = obj.email;
+        let user = await this.customerRepository.findOneBy({email})
+        // return user ;
+        
+        if(user && user.password===obj.password){
+            return user;
+        }
+        else{
+            return "login failed";
+        }
     }
 
 
