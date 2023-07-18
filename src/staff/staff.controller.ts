@@ -29,13 +29,21 @@ export class StaffController {
         ){}
 
     @Get()
-    showSuppliers(){
-        return this.staffService.getAllStaff();
+    showStaff(@Session() ss: Record<string, any>){
+        if(ss.staffEmail){
+            return this.staffService.getAllStaff();
+        }else{
+            return 'login first'
+        }
     }
 
     @Get(':sid')
-    showSupplierById(@Param('sid', ParseIntPipe) id: number){
-        return this.staffService.getStaffById(id);
+    showStaffById(@Session() ss: Record<string, any>, @Param('sid', ParseIntPipe) id: number){
+        if(ss.staffEmail){
+            return this.staffService.getStaffById(id);
+        }else{
+            return 'login first'
+        }
     }
 
     @Post()
@@ -50,114 +58,188 @@ export class StaffController {
     }
 
     @Delete(':sid')
-    discardSupplier(@Param('sid', ParseIntPipe) id: number){
-        return this.staffService.removeStaff(id);
+    discardStaff(@Session() ss: Record<string, any>, @Param('sid', ParseIntPipe) id: number){
+        if(ss.staffEmail){
+            return this.staffService.removeStaff(id);
+        }else{
+            return 'login first'
+        }
     }
 
     @Patch(':sid')
-    changeSupplier(@Body() staff: StaffDto, @Param('sid', ParseIntPipe) id: number){
-        return this.staffService.updateStaff(staff, id);
+    changeStaff(@Session() ss: Record<string, any>, @Body() staff: StaffDto, @Param('sid', ParseIntPipe) id: number){
+        if(ss.staffEmail){
+            return this.staffService.updateStaff(staff, id);
+        }else{
+            return 'login first'
+        }
     }
 
 
     // functionalites for Sales_Report
 
     @Get('report/all')
-    previewAllSalesReport(){
-        return this.salesReportService.getAllReports()
+    previewAllSalesReport(@Session() ss: Record<string, any>){
+        if(ss.staffEmail){
+            return this.salesReportService.getAllReports()
+        }else{
+            return 'login first'
+        }
     }
 
     @Get('report/:sale_id')
-    previewOneSalesReport(@Param('sale_id', ParseIntPipe) id: number){
-        return this.salesReportService.getSingleReport(id)
+    previewOneSalesReport(@Session() ss: Record<string, any>, @Param('sale_id', ParseIntPipe) id: number){
+        if(ss.staffEmail){
+            return this.salesReportService.getSingleReport(id)
+        }else{
+            return 'login first'
+        }
     }
 
     @Post('report')
-    createSalesReport(@Body() salesReport: SalesReportDto){
-        return this.salesReportService.addReport(salesReport)
+    createSalesReport(@Session() ss: Record<string, any>, @Body() salesReport: SalesReportDto){
+        if(ss.staffEmail){
+            return this.salesReportService.addReport(salesReport)
+        }else{
+            return 'login first'
+        }
     }
 
     @Patch('report/:sale_id')
-    updateSalesReport(@Body() salesReport: SalesReportDto, @Param('sale_id', ParseIntPipe) id: number){
-        return this.salesReportService.updateReport(salesReport, id)
+    updateSalesReport(@Session() ss: Record<string, any>, @Body() salesReport: SalesReportDto, @Param('sale_id', ParseIntPipe) id: number){
+        if(ss.staffEmail){
+            return this.salesReportService.updateReport(salesReport, id)
+        }else{
+            return 'login first'
+        }
     }
 
     // functionalites for Suppliers
 
     @Get('supplier/all')
-    previewAllSuppliers(){
-        return this.supplierService.getAllSuppliers()
+    previewAllSuppliers(@Session() ss: Record<string, any>){
+        if(ss.staffEmail){
+            return this.supplierService.getAllSuppliers()
+        }else{
+            return 'login first'
+        }
     }
 
     @Patch('supplier/:su_id')
-    approveSupplier(@Param('su_id', ParseIntPipe) id:number){
-        return this.supplierService.approveSupplier(id, 'approved')
+    approveSupplier(@Session() ss: Record<string, any>, @Param('su_id', ParseIntPipe) id:number){
+        if(ss.staffEmail){
+            return this.supplierService.approveSupplier(id, 'approved')
+        }else{
+            return 'login first'
+        }
     }
 
     @Get('supplier/:su_id')
-    searchSupplier(@Param('su_id', ParseIntPipe) id:number){
-        return this.supplierService.getSupplierById(id)
+    searchSupplier(@Session() ss: Record<string, any>, @Param('su_id', ParseIntPipe) id:number){
+        if(ss.staffEmail){
+            return this.supplierService.getSupplierById(id)
+        }else{
+            return 'login first'
+        }
     }
 
     // functionalites for delivery_man
 
     @Get('delivery_man/all')
-    getAllDeliveryMan(){
-        return this.deliveryManSerivce.getAllDeliveryMan()
+    getAllDeliveryMan(@Session() ss: Record<string, any>){
+        if(ss.staffEmail){
+            return this.deliveryManSerivce.getAllDeliveryMan()
+        }else{
+            return 'login first'
+        }
     }
 
     @Get('delivery_man/:d_id')
-    searchDeliveryMan(@Param('d_id', ParseIntPipe) id:number){
-        return this.salesReportService.getSingleReport(id)
+    searchDeliveryMan(@Session() ss: Record<string, any>, @Param('d_id', ParseIntPipe) id:number){
+        if(ss.staffEmail){
+            return this.salesReportService.getSingleReport(id)
+        }else{
+            return 'login first'
+        }
     }
 
     @Patch('delivery_man/:d_id')
-    approveDeliveryMan(@Param('d_id', ParseIntPipe) id:number){
-        return this.deliveryManSerivce.approveDeliveryMan(id, 'approved')
+    approveDeliveryMan(@Session() ss: Record<string, any>, @Param('d_id', ParseIntPipe) id:number){
+        if(ss.staffEmail){
+            return this.deliveryManSerivce.approveDeliveryMan(id, 'approved')
+        }else{
+            return 'login first'
+        }
     }
 
     // functionalites for product
 
     @Get('product/all')
-    getAllproduct(){
-        return this.productService.getAllProduct()
+    getAllproduct(@Session() ss: Record<string, any>){
+        if(ss.staffEmail){
+            return this.productService.getAllProduct()
+        }else{
+            return 'login first'
+        }
     }
 
     @Get('product/:pid')
-    searchProduct(@Param('pid', ParseIntPipe) id:number){
-        return this.productService.getSingleProduct(id)
+    searchProduct(@Session() ss: Record<string, any>, @Param('pid', ParseIntPipe) id:number){
+        if(ss.staffEmail){
+            return this.productService.getSingleProduct(id)
+        }else{
+            return 'login first'
+        }
     }
 
     @Patch('product/:pid')
-    approveProdut(@Param('pid', ParseIntPipe) id:number){
-        return this.productService.approveProduct(id, 'approved')
+    approveProdut(@Session() ss: Record<string, any>, @Param('pid', ParseIntPipe) id:number){
+        if(ss.staffEmail){
+            return this.productService.approveProduct(id, 'approved')
+        }else{
+            return 'login first'
+        }
     }
 
     // functionalites for review
 
     @Get('review')
-    getAllReviews(){
-        return this.reviewService.findAll()
+    getAllReviews(@Session() ss: Record<string, any>){
+        if(ss.staffEmail){
+            return this.reviewService.findAll()
+        }else{
+            return 'login first'
+        }
     }
 
     @Patch('review/:rid')
-    approveReview(@Param('rid', ParseIntPipe) id:number){
-        return this.reviewService.approveReview(id, 'approved')
+    approveReview(@Session() ss: Record<string, any>, @Param('rid', ParseIntPipe) id:number){
+        if(ss.staffEmail){
+            return this.reviewService.approveReview(id, 'approved')
+        }else{
+            return 'login first'
+        }
     }
 
     // functionalites for order tracking
 
     @Get('order_tracking')
-    getAllOrderTracking(){
-        return this.orderTrackingService.getAllOrderTracking()
+    getAllOrderTracking(@Session() ss: Record<string, any>){
+        if(ss.staffEmail){
+            return this.orderTrackingService.getAllOrderTracking()
+        }else{
+            return 'login first'
+        }
     }
 
     @Patch('order_tracking/:otid')
-    updateOrderTracking(@Body() oder_tracking: OrderTrackingDto, @Param('otid', ParseIntPipe) id:number){
-        return this.orderTrackingService.updateOrderTrack(id, oder_tracking)
+    updateOrderTracking(@Session() ss: Record<string, any>, @Body() oder_tracking: OrderTrackingDto, @Param('otid', ParseIntPipe) id:number){
+        if(ss.staffEmail){
+            return this.orderTrackingService.updateOrderTrack(id, oder_tracking)
+        }else{
+            return 'login first'
+        }
     }
-
-    //assign order tracking
 
     @Get('auth/test')
     testing(@Session() ss:Record<string, any>){

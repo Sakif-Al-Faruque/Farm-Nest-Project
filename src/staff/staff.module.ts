@@ -10,6 +10,7 @@ import { DeliveryManModule } from 'src/delivery_man/delivery_man.module';
 import { ProductModule } from 'src/product/product.module';
 import { ReviewModule } from 'src/review/review.module';
 import { OrderTrackingModule } from 'src/order_tracking/order_tracking.module';
+import { LogModule } from 'src/log/log.module';
 
 @Module({
     controllers: [StaffController],
