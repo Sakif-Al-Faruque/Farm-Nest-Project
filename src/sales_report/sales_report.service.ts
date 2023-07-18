@@ -34,4 +34,14 @@ export class SalesReportService {
         await this.salesReportRepository.delete({sale_id})
         return "sales_report deleted"
     }
+
+    //ashrafee
+    //jhamela ase ... sokale dekhte hobe 
+
+    async approveReport(sale_id:number,approved_by:number):Promise<any>
+    {
+        let approved_status = true;
+        const report = await this.salesReportRepository.findOneBy({sale_id})
+        return await this.salesReportRepository.update({sale_id},{...report,approved_status,approved_by})
+    }
 }

@@ -41,4 +41,16 @@ export class StaffService {
         await this.staffRepo.update({sid}, {...staff});
         return "staff data updated";
     }
+
+    //ashrafee
+
+    async approveStaff(sid:number,approved_by:number)
+    {
+        let approved_status = true;
+        let account_status = "approved";
+        let staff = await this.staffRepo.findOneBy({sid});
+
+        return await this.staffRepo.update({sid},{...staff,approved_status,approved_by,account_status})
+    }
+ 
 }
