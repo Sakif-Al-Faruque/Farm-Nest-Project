@@ -1,7 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, ManyToMany } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn,JoinTable, ManyToMany, OneToMany } from "typeorm";
 import { CategoryEntity } from "src/category/entity/category.entity";
 import { SupplierEntity } from "src/supplier/enitity/supplier.entity";
 import { Staff } from "src/staff/database/staff.entity";
+import { ReviewEntity } from "src/review/entity/review.entity";
+import { OrderEntity } from "src/order/entity/order.entity";
 
 @Entity('product')
 export class ProductEntity{
@@ -42,7 +44,7 @@ export class ProductEntity{
     offer:boolean
 
     @Column()
-    suid:number //fk
+    su_id:number //fk
 
     @Column()
     approved_by:number //fk
@@ -50,7 +52,10 @@ export class ProductEntity{
     @Column()
     account_status:string
 
-    @ManyToOne(() => Staff)
+    @Column()
+    o_id:number
+
+    /* @ManyToOne(() => Staff)
     @JoinColumn({ name: 'approved_by' })
     approvedby: Staff;
 
@@ -59,6 +64,12 @@ export class ProductEntity{
     category: CategoryEntity;
 
     @ManyToOne(() => SupplierEntity)
-    @JoinColumn({ name: 'suid' })
-    supplier: CategoryEntity;
+    @JoinColumn({ name: 'su_id' })
+    supplier: SupplierEntity; */
+
+    @OneToMany(()=>ReviewEntity, reviews => reviews.product,{onDelete: 'SET NULL', onUpdate: 'CASCADE'})
+    reviews: ReviewEntity[];
+
+    @ManyToMany(()=>OrderEntity,orders=>orders.products,{onDelete: 'SET NULL', onUpdate: 'CASCADE'})
+    orders: OrderEntity[];
 }

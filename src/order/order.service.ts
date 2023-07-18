@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { OrderDto } from './dto/order.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { OrderEntity } from './entity/order.entity';
+import { Repository } from 'typeorm';
 
 let Order = [
     {
@@ -25,33 +28,36 @@ let Order = [
 ];
 @Injectable()
 export class OrderService {
-    getAllOrders(){
-        return Order;
+
+    constructor(
+        @InjectRepository(OrderEntity)
+        private readonly orderRepo: Repository<OrderEntity>
+    ){}
+    async getAllOrders(): Promise<OrderEntity[]>{
+        return await this.orderRepo.find();
     }
 
-    getOrderById(o_id: number){
-        return Order.find((ord) => ord.o_id === o_id);
+    async getOrderById(o_id: number): Promise<OrderEntity>{
+        return await this.orderRepo.findOneBy({o_id});
     }
 
-    addOrder(ord: OrderDto){
-        Order.push(ord);
-        return 'Order Added';
+    async addOrder(ord: OrderDto): Promise<OrderEntity>{
+        return await this.orderRepo.save(ord);
+        
     }
 
-    removeOrder(o_id: number){
-        Order = Order.filter((ord) => ord.o_id != o_id);
-        return Order;
+    async removeOrder(o_id: number): Promise<any>{
+        return await this.orderRepo.delete({o_id});
     }
 
-    updateOrder(ordu: OrderDto, o_id: number ){
-        let userIndex = 0;
-        Order.forEach((ord, index)=>{
-            if(ord.o_id == o_id){
-                userIndex = index;
-            }
-        });
+    async updateOrder(ordu: OrderDto, o_id: number ): Promise<any>{
+        return await this.orderRepo.update({o_id}, {...ordu});
 
-        Order[userIndex] = ordu;
-        return Order;
     }
+
+    //show order by customer id
+    async showOrderByCustomerId(c_id: number): Promise<any>{
+        return await this.orderRepo.findBy({c_id});
+    }
+    
 }

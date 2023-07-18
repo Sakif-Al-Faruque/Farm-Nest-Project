@@ -4,6 +4,9 @@ import { CustomerEntity } from './entity/customer.entity';
 import { Repository } from 'typeorm';
 import { CustomerDto } from './customerDto.dto';
 import { ReviewEntity } from 'src/review/entity/review.entity';
+import { OrderEntity } from 'src/order/entity/order.entity';
+import { OrderDto } from 'src/order/dto/order.dto';
+import { ProductEntity } from 'src/product/entity/product.entity';
 // let customers=[
     // {
         // cid:"100",
@@ -35,6 +38,10 @@ export class CustomerService {
     constructor(
         @InjectRepository(CustomerEntity)
         private customerRepository: Repository<CustomerEntity>,
+        @InjectRepository(OrderEntity)
+        private orderRepository: Repository<OrderEntity>,
+        @InjectRepository(ProductEntity)
+        private productRepository: Repository<ProductEntity>,
     ){}
 
     //create
@@ -46,7 +53,7 @@ export class CustomerService {
 
     //search
     async findAll(): Promise<CustomerEntity[]>{
-        return this.customerRepository.find();
+        return this.customerRepository.find({relations:['orders']});
     }
 
     async findOne(cid: number): Promise<CustomerEntity>{
@@ -65,6 +72,28 @@ export class CustomerService {
     async delete(cid: number): Promise<any>{
         await this.customerRepository.delete(cid);
     }
+
+    //features
+
+    //order the products
+    async orderProduct(cid:number, p_id:number, order:OrderDto): Promise<any>{
+       const product = await this.productRepository.findOneBy({p_id});
+       const customer = await this.customerRepository.findOneBy({cid});
+
+       let ord = await this.orderRepository.create(order);
+       ord.customer = customer;
+       ord.products = [product];
+       ord.p_id = p_id;
+       await this.orderRepository.save(ord);
+    }
+
+    //cancel order
+    async cancelOrder(o_id:number): Promise<any>{
+        const order = await this.orderRepository.delete(o_id);
+    }
+
+
+
     
 }
 

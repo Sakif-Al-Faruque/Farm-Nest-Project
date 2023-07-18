@@ -34,7 +34,7 @@ export class ProductDto{
     offer: boolean
 
     @IsInt()
-    suid: number
+    su_id: number
 
     @IsInt()
     approved_by: number

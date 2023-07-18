@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { OrderEntity } from "src/order/entity/order.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('customer')
 export class CustomerEntity{
@@ -64,6 +65,8 @@ export class CustomerEntity{
   status: string;
 
 
+  @OneToMany(()=>OrderEntity, orders=>orders.customer,{onDelete: 'SET NULL', onUpdate: 'CASCADE'})
+  orders: OrderEntity[];
 
 
 }

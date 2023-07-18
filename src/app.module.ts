@@ -19,6 +19,19 @@ import { StaffAuthModule } from './staff/staff-auth/staff-auth.module';
 import { Staff } from './staff/database/staff.entity';
 import { SupplierEntity } from './supplier/enitity/supplier.entity';
 import { DeliveryManEntity } from './delivery_man/enitity/delivery_man.entity';
+import { LogEntity } from './log/entity/log.entity';
+import { AdminModule } from './admin/admin.module';
+import { Admin } from './admin/admin.entity';
+import { CustomerModule } from './customer/customer.module';
+import { CustomerEntity } from './customer/entity/customer.entity';
+import { OfferEntity } from './offer/entity/offer.entity';
+import { ReviewEntity } from './review/entity/review.entity';
+import { ReviewModule } from './review/review.module';
+import { OfferModule } from './offer/offer.module';
+import { OrderTrackingModule } from './order_tracking/order_tracking.module';
+import { NotificationBoxModule } from './notification_box/notification_box.module';
+import { OrderEntity } from './order/entity/order.entity';
+import { OrderTracking } from './order_tracking/order_tracking.entity';
 
 @Module({
   imports: [
@@ -31,7 +44,18 @@ import { DeliveryManEntity } from './delivery_man/enitity/delivery_man.entity';
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
       autoLoadEntities: true,
-      entities: [Staff, SupplierEntity, DeliveryManEntity],
+      entities: [
+        Staff, 
+        SupplierEntity, 
+        DeliveryManEntity, 
+        LogEntity, 
+        Admin,
+        CustomerEntity, 
+        OfferEntity, 
+        ReviewEntity,
+        OrderEntity,
+        OrderTracking
+      ],
       synchronize: true
     }),
     MailerModule.forRoot({
@@ -39,11 +63,32 @@ import { DeliveryManEntity } from './delivery_man/enitity/delivery_man.entity';
         host: 'smtp-relay.brevo.com',
         auth: {
           user: 'rs.expoit123@gmail.com',
-          pass: 'xsmtpsib-b53e719b92b33fb4f3064487e4c6f93725e54e68efefad79ef2fd7237ef18599-AKpqUn2s591c4ZO0'
+          pass: 'E2kMOwLdZ6aCyINh'
         }
       }
     }),
-    SupplierModule, DeliveryManModule, LogModule, OrderModule, SupplierAuthModule, DeliveryManAuthModule, StaffModule, CategoryModule, SalesReportModule, ProductModule, HashingModule, StaffAuthModule],
+
+    SupplierModule, 
+    DeliveryManModule, 
+    LogModule, 
+    OrderModule, 
+    SupplierAuthModule, 
+    DeliveryManAuthModule, 
+    StaffModule, 
+    CategoryModule, 
+    SalesReportModule, 
+    ProductModule, 
+    HashingModule, 
+    StaffAuthModule, 
+    LogModule,
+    AdminModule,
+    CustomerModule,
+    ReviewModule,
+    OfferModule ,
+    OrderTrackingModule, 
+    NotificationBoxModule,
+    OrderModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
