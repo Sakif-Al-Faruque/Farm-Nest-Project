@@ -38,7 +38,9 @@ export class StaffService {
     }
 
     async updateStaff(staff: StaffDto, sid: number ): Promise<string>{
-        await this.staffRepo.update({sid}, {...staff});
+        let password = await this.hashingService.encodText(staff.password);
+        const userRepo = await this.staffRepo.create({...staff, password});
+        await this.staffRepo.update({sid}, userRepo);
         return "staff data updated";
     }
 }
