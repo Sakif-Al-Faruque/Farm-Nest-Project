@@ -54,88 +54,165 @@ export class AdminController {
     }
 
     @Post("create-admin")
-    async createAdmin(@Body() admin : adminDto)
+    async createAdmin(@Body() admin : adminDto,@Session() session:Record<string,any>)
     {
-        return this.adminService.addAdmin(admin);
+        if(session.adminId != null)
+        {
+            return this.adminService.addAdmin(admin);
+        }
+
+        else
+        {
+            return "Login first!";
+        }
+        
     }
 
     @Get("list-admin")
-    async listAdmin()
+    async listAdmin(@Session() session:Record<string,any>)
     {
-        return this.adminService.getAllAdmin();
+        if(session.adminId != null)
+        {
+            return this.adminService.getAllAdmin();
+        }
+        else
+        {
+            return "Login First!";
+        }
+       
     }
 
     @Patch("update-admin/:aid")
-    async upAdmin(@Body() admin:adminDto, @Param('aid',ParseIntPipe) id:number)
+    async upAdmin(@Body() admin:adminDto, @Param('aid',ParseIntPipe) id:number,@Session() session:Record<string,any>)
     {
-        return this.adminService.updateAdmin(admin,id);
+        if(session.adminId != null){
+            return this.adminService.updateAdmin(admin,id);
+        }
+        else{
+            return "login first"
+        }
+        
     }
 
     @Delete("delete-admin/:aid")
-    async delAdmin(@Param("aid",ParseIntPipe)id:number):Promise <any>
+    async delAdmin(@Param("aid",ParseIntPipe)id:number,@Session() session:Record<string,any>):Promise <any>
     {
-        return this.adminService.removeAdmin(id);
+        if(session.adminId != null)
+        {
+            return this.adminService.removeAdmin(id);
+        }
+        else
+        {
+            return "login first"
+        }
+        
     }
 
     @Get("report/all")
-    async getAllReports():Promise<any>
+    async getAllReports(@Session() session:Record<string,any>):Promise<any>
     {
-        const get = await this.salesService.getAllReports();
-
-        if(!get)
+        if(session.adminId != null)
         {
-            return "Fetching failed"
+            const get = await this.salesService.getAllReports();
+
+            if(!get)
+            {
+                return "Fetching failed"
+            }
+
+            else
+            {
+                return get;
+            }
         }
 
-        else
-        {
-            return get;
+        else{
+           
+            return "login first"
         }
+        
     }
 
     @Get('report/:sid')
-    previewOneSalesReport(@Param('sid', ParseIntPipe) id: number)
+    previewOneSalesReport(@Param('sid', ParseIntPipe) id: number,@Session() session:Record<string,any>)
     {
-        let get =  this.salesService.getSingleReport(id)
-
-        if(!get)
+        if(session.adminId)
         {
-            return "fetch failed"
-        }
+            let get =  this.salesService.getSingleReport(id)
+            if(!get)
+            {
+                return "fetch failed"
+            }
+    
+            else
+            {
+                return get;
+            }
 
+        }
         else
         {
-            return get;
-        }
+            return "login first"
+        } 
     }
     
-
-    //jhamela ase. sokal e dekhte hobe
-    //sales generate korse tkhn e admin approve lagbe. otherwise kmne boshbe.
     @Patch("approve/:sid")
     approveReport(@Param("sid",ParseIntPipe) id: number,@Session() session:Record<string,any>)
     {
         let adminId = session.adminId
-        return this.salesService.approveReport(id,adminId)
+        if(adminId != null)
+        {
+            return this.salesService.approveReport(id,adminId)
+        }
+        else
+        {
+            return "login failed"
+        }
+        
     }
 
     @Get("show-staff")
-    async getAllStaff()
+    async getAllStaff(@Session() session:Record<string,any>)
     {
-        return this.staffService.getAllStaff();
+        if(session.adminId != null)
+        {
+            return this.staffService.getAllStaff();
+        }
+        else
+        {
+            return "login first"
+        }
+        
     }
 
     @Get('show-staff/:id')
-    async getStaffById(@Param('id',ParseIntPipe)id:number)
+    async getStaffById(@Param('id',ParseIntPipe)id:number,@Session() session:Record<string,any>)
     {
-        return this.staffService.getStaffById(id)
+        if(session.adminId != null)
+        {
+            return this.staffService.getStaffById(id)
+        }
+
+        else
+        {
+            return "login first"
+        }
+        
     }
 
     @Patch("approve-staff/:sid")
     async approveStaff(@Param("sid",ParseIntPipe)id:number,@Session() session:Record<string,any>)
     {
         let adminId = session.adminId;
-        return await this.staffService.approveStaff(id,adminId)
+        if(adminId != null)
+        {
+            return await this.staffService.approveStaff(id,adminId)
+        }
+        else
+        {
+            return "Login first"
+        }
+        
     }
 
     @Post("logout")
@@ -144,11 +221,4 @@ export class AdminController {
         session.destroy();
         return "Logged out"
     }
-
-
-
-
-
-
-
 }
